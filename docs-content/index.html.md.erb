@@ -1,114 +1,102 @@
 ---
-title: YOUR-PRODUCT-NAME (Beta)
+title: a9s LogMe for PCF (Beta)
 owner: Partners
 ---
 
+<style>
+    .note.warning {
+        background-color: #fdd;
+        border-color: #fbb
+    }
+    .note.warning:before {
+        color: #f99;
+     }
+</style>
+
 <p class="note warning">
-<strong>WARNING! </strong>
-The PRODUCT-NAME for PCF tile is currently in beta and is intended for evaluation and test purposes only. 
-Do not use this product in a PCF production environment.
+<strong>IMPORTANT: </strong>
+The a9s LogMe for Pivotal Cloud Foundry (PCF) tile is currently in beta and is intended for evaluation and test purposes only. Do not use this product in a PCF production environment.
 </p>
 
-**This topic begins with a brief description of what the product tile (e.g. Apigee Edge Service Broker for PCF) does, 
-whereas the Overview section below describes what the service itself (e.g. Apigee Edge) does. See below for an example.**
+This documentation describes the a9s LogMe for PCF tile. a9s LogMe for PCF enables on-demand provisioning of VM-based, dedicated LogMe (ELK Stack) servers and clusters. Developers can create instances of a LogMe server or cluster using Apps Manager or the Cloud Foundry Command Line interface (cf CLI) and bind these instances to an application to monitor it or use them to monitor services. Depending on your service plan, a service instance may be associated with a single, dedicated VM or a set of VMs consisting of multiple VMs containing a LogMe cluster.
 
-This documentation describes the Apigee Edge Service Broker for Pivotal Cloud Foundry (PCF). The Apigee Edge Service 
-Broker for PCF enables developers to manage APIs for their PCF apps through the Apigee Edge management console.
-
-**Note**: This description will appear under **OVERVIEW** in the tile's listing on 
-[Pivotal Network](http://network.pivotal.io).
+<%= image_tag("a9s-logme-tile.png") %>
 
 ## <a id='overview'></a>Overview
 
-**The overview describes the service that your product offers to PCF developers. 
-Make sure to overview the features of the integration.
-Don't focus only on the overview of your product that is being integrated.
-See below for an example.**
+a9s LogMe for PCF enables on-demand provisioning of VM-based, dedicated LogMe servers. App developers can create instances of a LogMe server using Apps Manager or the Cloud Foundry Command Line Interface tool (cf CLI) and bind these instances to an app to monitor it or use them to monitor services. The service runs on a single, dedicated VM, the size of which depends on your service plan.
 
-The Apigee Edge Service Broker for PCF registers a service broker with PCF and exposes its service plans on the 
-Marketplace. Developers can then create service plan instances using Apps Manager or the Cloud Foundry Command 
-Line Interface (cf CLI) and bind them to their apps.
+a9s LogMe for PCF automatically provisions service instances and creates a dedicated VM for each instance. This isolates service instances, preventing the "bad neighborhood" problem that can occur when multiple service instances run on a shared VM.
 
-Creating an Apigee Edge for PCF service instance and binding it to an app creates an Apigee Edge API proxy that 
-handles requests for the app. This lets developers use the Apigee Edge management console to manage API request 
-handling between clients and the app.
+Because the service provisions VMs as needed, only existing service instances use infrastructure resources. These resources are released when service instances are destroyed. With on-demand provisioning, the number of service instances grows or shrinks with demand.
 
-**Note**: This overview will appear under **OVERVIEW**, combined with the description above in the tile's listing on 
-[Pivotal Network](http://network.pivotal.io).
+### <a></a>Current Features
 
-## <a id='features'></a>Key Features
+a9s LogMe for PCF includes the following key features:
 
-**Note**: This feature list will appear under **FEATURES** in the tile's listing on 
-[Pivotal Network](http://network.pivotal.io). 
-Make sure you list the key features of the tile (the integration). 
-We cannot accept a list of the key features of your product that we are integrating.
-
-YOUR-PRODUCT-NAME includes the following key features:
-
-* Feature one.
-* Feature two.
-* Feature three.
-
-
+| Feature | Description |
+|---------|---------|
+| **On­-demand service instance provisioning** | a9s LogMe for PCF deploys LogMe instances automatically. Developers can provision a LogMe service (single-VM or cluster of VMs) using a single command (`cf create-service`). |
+| **Service instance isolation** | Each LogMe server runs on a dedicated VM to ensure bad-neighborhood protection and align with enterprise security requirements.<br/><br/>a9s LogMe for PCF uses Cloud Foundry [application security groups (ASGs)](https://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) to prevent network connections from unauthorized apps.
+| **Smoke tests** | A post-deployment, smoke-test errand runs basic tests against your installation, ensuring that it is configured properly. |
+| **Deployment updater** | An updater errand updates the stemcell and all provisioned a9s LogMe for PCF service instances to their latest version. |
 
 ## <a id="snapshot"></a>Product Snapshot
 
-The following table provides version and version-support information about PRODUCT-NAME.
+The following table provides version and version-support information about a9s LogMe for PCF:
 
 <table class="nice">
     <th>Element</th>
     <th>Details</th>
     <tr>
-        <td>Tile version</td>
-        <td>vYOUR-VERSION-NUMBER</td>
+        <td>Version</td>
+        <td>v0.9.0</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>YOUR-RELEASE-DATE (Ex: July 1, 2017)</td>
+        <td>July 20, 2017</td>
     </tr>
     <tr>
         <td>Software component version</td>
-        <td>vYOUR-SOFTWARE-COMPONENT-VERSION-NUMBER</td>
+        <td>v0.9.0</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>vYOUR-COMPATIBLE-OPS-MAN-VERSION (Ex. v1.8.x, v1.9.x, v1.10.x)</td>
+        <td>v1.7.x, v1.8.x, v1.9.x, v1.10.x</td>
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
-        <td>vYOUR-COMPATIBLE-ELASTIC-RUNTIME-VERSION (Ex. v1.8.x, v1.9.x, v1.10.x)</td>
+        <td>v1.7.x, v1.8.x, v1.9.x, v1.10.x</td>
     </tr>
     <tr>
         <td>IaaS support</td>
-        <td>AWS?, Azure?, GCP?, OpenStack?, and vSphere?</td>
+        <td>AWS, OpenStack, and vSphere</td>
     </tr>
     <tr>
-        <td>IPsec support?</td>
-        <td>[Yes or No]</td>
+        <td>IPsec support</td>
+        <td>No</td>
     </tr>
 </table>
 
 ## <a id="reqs"></a>Requirements
 
-**Provide any general or specific requirements, prerequisites, or dependencies here. 
-A general requirement might be something like, "An AppDynamics account." 
-A specific requirement might be something like, "Packaging Dependencies for Offline Buildpacks."**
+To install and use a9s LogMe for PCF, you must install the following products and tiles:
 
-YOUR-PRODUCT-NAME has the following requirements:
+* Elastic Runtime, v1.7 or later
+* [a9s Consul DNS](https://network.pivotal.io/products/a9s-consul) for PCF, v1.0.0 or later
+* [a9s BOSH](https://network.pivotal.io/products/a9s-bosh) for PCF, v1.0.0 or later
 
-+ PREREQUISITE-1
+For more information, see [Installing and Configuring a9s LogMe for PCF](./installing.html).
 
-+ PREREQUISITE-2
+## <a id="feedback"></a>Feedback and Support
 
-## <a id="limitations"></a>Limitations
+The anynines team can help you get started and succeed with a9s LogMe for PCF. Technical support, including a service-level agreement, is available with a commercial license.
 
-**List any known limitations.**
+If your company has specific LogMe administration policies or configuration best practices,
+the anynines team is happy to incorporate them. Third-party LogMe support organizations are also welcome to assist.
 
-## <a id="feedback"></a>Feedback
-
-If you have a feature request, questions, or information about a bug, please email
-[Pivotal Cloud Foundry Feedback](mailto:pivotal-cf-feedback@pivotal.io) list or send an email to YOUR-SUPPORT-EMAIL.
+Contributions are welcome and will be investigated by the anynines team. Please send any bugs, feature requests, or questions to svc.support@anynines.com.
 
 ## <a id='license'></a>License
 
-**List any license information here.**
+Contact <a href="http://data-services.anynines.com/sales" target="_blank">our sales team</a> to learn more about commercial licenses and support.
