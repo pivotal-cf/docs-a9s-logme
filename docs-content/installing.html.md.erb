@@ -19,26 +19,25 @@ This topic describes how to install and configure a9s LogMe for Pivotal Cloud Fo
 
 Before installing a9s LogMe for PCF, ensure that you have installed and configured the products and tiles listed in [Requirements](./index.html#reqs).
 
-This comprises the **a9s Consul DNS for PCF** tile and the **a9s BOSH for PCF** tile.
+These requirements include the **a9s Consul DNS for PCF** tile and the **a9s BOSH for PCF** tile:
 
-In short, the a9s Consul DNS for PCF tile is required because it is responsible for providing an
-internal DNS system to the other a9s service tiles, the a9s LogMe for PCF
-included. You can find further information about this tile in [its own documentation](https://docs.pivotal.io/partners/a9s-consul-dns/usecase.html).
+* The a9s Consul DNS for PCF tile is required because it is responsible for providing an
+internal DNS system to the other a9s service tiles, including a9s LogMe for PCF. For more information about this tile in [The Purpose of the a9s Consul DNS for PCF tile](https://docs.pivotal.io/partners/a9s-consul-dns/usecase.html).
 
-As for the a9s BOSH for PCF tile, it is required because it is used by the a9s service tiles,
-for the provisioning and lifecycle managment of their vitual machine. Further
-information on this tile can be found in [its own documentation](https://docs.pivotal.io/partners/a9s-bosh/usecase.html).
+* The a9s BOSH for PCF tile is required because it is used by the a9s service tiles
+for the provisioning and lifecycle managment of their vitual machine. For
+more information on this tile, see [a9s BOSH for PCF Use Case](https://docs.pivotal.io/partners/a9s-bosh/usecase.html).
 
 
 ##<a id='install'></a> Install and Configure a9s LogMe for PCF
 
-To install a9s LogMe for PCF, perform the following steps:
+To install a9s LogMe for PCF, do the following:
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/a9s-logme).
 
 2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-3. Click **Add** or **+**(depending on the PCF version) next to the uploaded a9s LogMe for PCF tile in the Ops Manager
+3. Click **Add** or **+**, depending on the PCF version, next to the uploaded a9s LogMe for PCF tile in the Ops Manager
 **Available Products** view to add it to your staging area.
 
 4. Click the newly added tile, and then click **Settings** to review the configuration settings.
