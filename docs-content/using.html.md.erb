@@ -58,7 +58,7 @@ To enable your app to access the LogMe service instance, run `cf restage APP-NAM
 
 ###<a id='see-app-logs'></a> See Your App's logs
 
-perform the following steps in order to see your application's logs:
+Perform the following steps to see your application's logs:
 
 1. Grap the dashboard URL with `cf service my-logme-service`:
   <pre class="terminal">
@@ -77,25 +77,25 @@ perform the following steps in order to see your application's logs:
   Updated: 2017-07-22T17:13:26Z
   </pre>
 
-2. Now browse to the dashboard url and authenticate on the redirected page with your Cloud Foundry credentials:
+2. Browse to the dashboard URL and authenticate on the redirected page with your Cloud Foundry credentials:
 <%= image_tag("pcf-authentication-page.png") %>
 
-3. You will see a authorization request which has to be approved:
+3. Click **Authorize** to approve the authorization request:
 <%= image_tag("pcf-authorization-page.png") %>
 
-4. After the authentication and authorization you will see the dashboard, where you have to specify the `Index name or pattern` as well as the `Time-field name`. For the `Index name or pattern` you could just use the prefilled value.
+4. In the dashboard that appears, specify the `Index name or pattern` and the `Time-field name`. For the `Index name or pattern` you could use the prefilled value.
 <%= image_tag("dashboard-index.png") %>
-For the `Time-field name` use the only available value, which is `@timestamp`.
+For the `Time-field name` use the only available value, `@timestamp`.
 <%= image_tag("dashboard-timestamp.png") %>
-Apply the settings by clicking on the `create` button
+5. Click **Create** to apply the settings.
 
-5. Now you can see your application's logs on the Discover tab of the dashboard:
+Your application's logs appear on the Discover tab of the dashboard:<br><br>
 <%= image_tag("dashboard-app-logs.png") %>
 
 
 ##<a id='using-with-service'></a> Stream a9s Service Logs to LogMe
 
-To being able to use a LogMe service instance to monitor another service instance, you can follow the two first steps of <a href='#using-with-app'>"Stream application logs to LogMe"</a> to create an a9s LogMe service instance.
+To use a LogMe service instance to monitor another service instance, follow the two first steps of <a href='#using-with-app'>Stream application logs to LogMe</a> to create an a9s LogMe service instance.
 
 ###<a id='create-key'></a> Create a Service Key
 
@@ -123,7 +123,7 @@ $ cf update-service service-instance-to-monitor \
 
 ###<a id='see-service-logs'></a> See Your Service's Logs
 
-perform the following steps in order to see your service's logs:
+Perform the following steps to see your service's logs:
 
 1. Grap the dashboard URL with `cf service my-logme-service`:
   <pre class="terminal">
@@ -142,19 +142,19 @@ perform the following steps in order to see your service's logs:
   Updated: 2017-07-22T17:13:26Z
   </pre>
 
-2. Now browse to the dashboard url and authenticate on the redirected page with your Cloud Foundry credentials:
+2. Browse to the dashboard URL and authenticate on the redirected page with your Cloud Foundry credentials:
 <%= image_tag("pcf-authentication-page.png") %>
 
-3. You will see a authorization request which has to be approved:
+3. Click **Authorize** to approve the authorization request:
 <%= image_tag("pcf-authorization-page.png") %>
 
-4. After the authentication and authorization you will see the dashboard, where you have to specify the `Index name or pattern` as well as the `Time-field name`. For the `Index name or pattern` you could just use the prefilled value.
+4. The dashboard appears. Specify the `Index name or pattern` and the `Time-field name`. For the `Index name or pattern` you can use the prefilled value.
 <%= image_tag("dashboard-index.png") %>
-For the `Time-field name` use the only available value, which is `@timestamp`.
+For the `Time-field name` use the only available value, `@timestamp`.
 <%= image_tag("dashboard-timestamp.png") %>
-Apply the settings by clicking on the `create` button
+5. Click **Create** to apply the settings.
 
-5. Now you can see your service's logs on the Discover tab of the dashboard:
+Your service's logs appear on the Discover tab of the dashboard:<br><br>
 <%= image_tag("dashboard-service-logs.png") %>
 
 
