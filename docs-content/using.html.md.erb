@@ -56,44 +56,46 @@ $ cf bind-service my-app my-logme-service
 
 To enable your app to access the LogMe service instance, run `cf restage APP-NAME` or `cf restart APP-NAME`.
 
-###<a id='see-logs'></a> See Your App's logs
+###<a id='see-app-logs'></a> See Your App's logs
 
-In order to see you application's logs you first have to grap the dashboard URL:
+perform the following steps in order to see your application's logs:
 
-<pre class="terminal">
-Service instance: my-logme-service
-Service: a9s-logme
-Bound apps: my-app
-Tags:
-Plan: logme-single-small
-Description: This is the anynines LogMe service.
-Documentation url: https://a9s-logme-dashboards.apps.dev2.a9s-ops.de/service-instance/a89f3114-5e77-40a5-b3b0-34a9741f3cd6
- # example url
-Dashboard:
+1. Grap the dashboard URL with `cf service my-logme-service`:
+  <pre class="terminal">
+  Service instance: my-logme-service
+  Service: a9s-logme
+  Bound apps: my-app
+  Tags:
+  Plan: logme-single-small
+  Description: This is the anynines LogMe service.
+  Documentation url: https://a9s-logme-dashboards.apps.dev2.a9s-ops.de/service-instance/a89f3114-5e77-40a5-b3b0-34a9741f3cd5
+  Dashboard:
+  Last Operation
+  Status: create succeeded
+  Message:
+  Started: 2017-07-22T17:10:21Z
+  Updated: 2017-07-22T17:13:26Z
+  </pre>
 
-Last Operation
-Status: create succeeded
-Message:
-Started: 2017-07-22T17:10:21Z
-Updated: 2017-07-22T17:13:26Z
-</pre>
-
-Now browse to the dashboard url and authenticate on the redirected page with your Cloud Foundry credentials:
-
+2. Now browse to the dashboard url and authenticate on the redirected page with your Cloud Foundry credentials:
 <%= image_tag("pcf-authentication-page.png") %>
 
-After the authentication you will see the dashboard where you have to create an index on the timestamp field where you can use the prefilled value. Also you have to select Time-field name where you can use the @timestamp value (which is the only one available):
+3. You will see a authorization request which has to be approved:
+<%= image_tag("pcf-authorization-page.png") %>
 
+4. After the authentication and authorization you will see the dashboard, where you have to specify the `Index name or pattern` as well as the `Time-field name`. For the `Index name or pattern` you could just use the prefilled value.
+<%= image_tag("dashboard-index.png") %>
+For the `Time-field name` use the only available value, which is `@timestamp`.
 <%= image_tag("dashboard-timestamp.png") %>
+Apply the settings by clicking on the `create` button
 
-Now you can see your applications logs on the Discover tab of the dashboard:
-
+5. Now you can see your application's logs on the Discover tab of the dashboard:
 <%= image_tag("dashboard-app-logs.png") %>
 
 
 ##<a id='using-with-service'></a> Stream a9s Service Logs to LogMe
 
-To being able to use a LogMe service instance to monitor another service-instance, you can follow the two first steps of <a href='#using-with-app'>"Stream application logs to LogMe"</a> to create an a9s LogMe service instance.
+To being able to use a LogMe service instance to monitor another service instance, you can follow the two first steps of <a href='#using-with-app'>"Stream application logs to LogMe"</a> to create an a9s LogMe service instance.
 
 ###<a id='create-key'></a> Create a Service Key
 
@@ -119,38 +121,40 @@ $ cf update-service service-instance-to-monitor \
 -c '{"syslog": ["d37f7da-logstash.service.dc1.consul:514"]}'
 </pre>
 
-###<a id='see-logs'></a> See Your App's Logs
+###<a id='see-service-logs'></a> See Your Service's Logs
 
-In order to see you application's logs you first have to grap the dashboard url:
+perform the following steps in order to see your service's logs:
 
-<pre class="terminal">
-Service instance: my-logme-service
-Service: a9s-logme
-Bound apps: my-app
-Tags:
-Plan: logme-single-small
-Description: This is the anynines LogMe service.
-Documentation url: https://a9s-logme-dashboards.apps.dev2.a9s-ops.de/service-instance/a89f3114-5e77-40a5-b3b0-34a9741f3cd6
- # example url
-Dashboard:
+1. Grap the dashboard URL with `cf service my-logme-service`:
+  <pre class="terminal">
+  Service instance: my-logme-service
+  Service: a9s-logme
+  Bound apps: my-app
+  Tags:
+  Plan: logme-single-small
+  Description: This is the anynines LogMe service.
+  Documentation url: https://a9s-logme-dashboards.apps.dev2.a9s-ops.de/service-instance/a89f3114-5e77-40a5-b3b0-34a9741f3cd5
+  Dashboard:
+  Last Operation
+  Status: create succeeded
+  Message:
+  Started: 2017-07-22T17:10:21Z
+  Updated: 2017-07-22T17:13:26Z
+  </pre>
 
-Last Operation
-Status: create succeeded
-Message:
-Started: 2017-07-22T17:10:21Z
-Updated: 2017-07-22T17:13:26Z
-</pre>
-
-Now browse to the dashboard url and authenticate on the redirected page with your Cloud Foundry credentials:
-
+2. Now browse to the dashboard url and authenticate on the redirected page with your Cloud Foundry credentials:
 <%= image_tag("pcf-authentication-page.png") %>
 
-After the authentication you will see the dashboard where you have to create an index on the timestamp field where you can use the prefilled value. Also you have to select Time-field name where you can use the @timestamp value (which is the only one available):
+3. You will see a authorization request which has to be approved:
+<%= image_tag("pcf-authorization-page.png") %>
 
+4. After the authentication and authorization you will see the dashboard, where you have to specify the `Index name or pattern` as well as the `Time-field name`. For the `Index name or pattern` you could just use the prefilled value.
+<%= image_tag("dashboard-index.png") %>
+For the `Time-field name` use the only available value, which is `@timestamp`.
 <%= image_tag("dashboard-timestamp.png") %>
+Apply the settings by clicking on the `create` button
 
-Now you can see your service' logs on the Discover tab of the dashboard:
-
+5. Now you can see your service's logs on the Discover tab of the dashboard:
 <%= image_tag("dashboard-service-logs.png") %>
 
 
