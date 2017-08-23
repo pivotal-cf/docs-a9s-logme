@@ -18,17 +18,28 @@ owner: Partners
 The a9s LogMe for Pivotal Cloud Foundry (PCF) tile is currently in beta and is intended for evaluation and test purposes only. Do not use this product in a PCF production environment.
 </p>
 
-This documentation describes the a9s LogMe for PCF tile. a9s LogMe for PCF enables on-demand provisioning of VM-based, dedicated LogMe (ELK Stack) servers and clusters. Developers can create instances of a LogMe server or cluster using Apps Manager or the Cloud Foundry Command Line interface (cf CLI), and bind these instances to an application to monitor it, or use them to monitor services. Depending on your service plan, a service instance may be associated with a single, dedicated VM, or a set of VMs consisting of multiple VMs containing a LogMe cluster.
+This documentation describes the a9s LogMe for PCF tile.
+a9s LogMe for PCF enables on-demand provisioning of VM-based, dedicated LogMe (ELK Stack) servers and clusters.
+Developers can create instances of a LogMe server or cluster using Apps Manager or the Cloud Foundry Command Line interface (cf CLI),
+and bind these instances to an application to monitor it, or use them to monitor services.
+Depending on your service plan, a service instance may be associated with a single, dedicated VM,
+or a set of VMs consisting of multiple VMs containing a LogMe cluster.
 
 <%= image_tag("a9s-logme-tile.png") %>
 
 ## <a id='overview'></a>Overview
 
-a9s LogMe for PCF enables on-demand provisioning of VM-based, dedicated LogMe servers. App developers can create instances of a LogMe server using Apps Manager or the Cloud Foundry Command Line Interface tool (cf CLI) and bind these instances to an app to monitor it or use them to monitor services. The service runs on a single, dedicated VM, the size of which depends on your service plan.
+a9s LogMe for PCF enables on-demand provisioning of VM-based, dedicated LogMe servers.
+App developers can create instances of a LogMe server using Apps Manager or the Cloud Foundry Command Line Interface tool (cf CLI) and bind these instances to an app to monitor it or use them to monitor services.
+The service runs on a single, dedicated VM, the size of which depends on your service plan.
 
-a9s LogMe for PCF automatically provisions service instances and creates a dedicated VM for each instance. This isolates service instances, preventing the "noisy neighbor" problem that can occur when multiple service instances run on a shared VM.
+a9s LogMe for PCF automatically provisions service instances and creates a dedicated VM for each instance.
+This isolates service instances, preventing the "noisy neighbor" problem that can occur
+when multiple service instances run on a shared VM.
 
-Because the service provisions VMs as needed, only existing service instances use infrastructure resources. These resources are released when service instances are destroyed. With on-demand provisioning, the number of service instances grows or shrinks based on demand.
+Because the service provisions VMs as needed, only existing service instances use infrastructure resources.
+These resources are released when service instances are destroyed.
+With on-demand provisioning, the number of service instances grows or shrinks based on demand.
 
 ### <a></a>Current Features
 
@@ -62,11 +73,11 @@ The following table provides version and version-support information about a9s L
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.7.x, v1.8.x, v1.9.x, v1.10.x</td>
+        <td>v1.7.x, v1.8.x, v1.9.x, and v1.10.x</td>
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.7.x, v1.8.x, v1.9.x, v1.10.x</td>
+        <td>v1.7.x, v1.8.x, v1.9.x, and v1.10.x</td>
     </tr>
     <tr>
         <td>IaaS support</td>
