@@ -19,8 +19,10 @@ The a9s LogMe for Pivotal Cloud Foundry (PCF) tile is currently in beta and is i
 </p>
 
 This documentation describes the a9s LogMe for PCF tile.
-a9s LogMe for PCF enables on-demand provisioning of VM-based, dedicated LogMe (ELK Stack) servers and clusters.
-Developers can create instances of a LogMe server or cluster using Apps Manager or the Cloud Foundry Command Line interface (cf CLI),
+a9s LogMe for PCF enables on-demand provisioning of a pre-configured [ELK](https://www.elastic.co/elk-stack) (Elasticsearch Logstash Kibana) Stack.
+The ELK stack makes service and application logs queryable, visualisable and
+scalable.
+Developers can create instances of a LogMe server or cluster using Apps Manager or the Cloud Foundry Command Line Interface (cf CLI),
 and bind these instances to an application to monitor it, or use them to monitor services.
 Depending on your service plan, a service instance may be associated with a single, dedicated VM,
 or a set of VMs consisting of multiple VMs containing a LogMe cluster.
