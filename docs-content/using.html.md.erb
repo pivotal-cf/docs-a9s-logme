@@ -106,7 +106,7 @@ $ cf create-service-key my-logme-service key1
 $ cf service-key my-logme-service key1
 
 {
- "host": "syslog://d37f7da-logstash.service.dc1.consul:514",
+ "host": "syslog://10.0.1.24:514",
  "password": "a9sfd6e0d814e78c903290ebb5a7207b20c5f0a2653",
  "username": "a9sed20b19c769f0804bc68b97d02cba86e9c3a0379"
 }
@@ -118,7 +118,7 @@ Run `cf update-service INSTANCE-NAME -c PARAMETERS-AS-JSON` to update the syslog
 
 <pre class="terminal">
 $ cf update-service service-instance-to-monitor \
--c '{"syslog": ["d37f7da-logstash.service.dc1.consul:514"]}'
+-c '{"syslog": ["10.0.1.24:514"]}'
 </pre>
 
 ###<a id='see-service-logs'></a> See Your Service's Logs
