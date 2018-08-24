@@ -12,16 +12,14 @@ owner: Partners
         color: #f99;
      }
 </style>
-
-<p class="note warning">
+ <p class="note warning">
 <strong>IMPORTANT: </strong>
 The a9s LogMe for Pivotal Cloud Foundry (PCF) tile is currently in beta and is intended for evaluation and test purposes only. Do not use this product in a PCF production environment.
 </p>
 
 This documentation describes the a9s LogMe for PCF tile.
 a9s LogMe for PCF enables on-demand provisioning of a pre-configured [ELK](https://www.elastic.co/elk-stack) (Elasticsearch Logstash Kibana) Stack.
-The ELK stack makes service and application logs queryable, visualisable and
-scalable.
+The ELK stack makes service and application logs queryable, visualisable and scalable.
 Developers can create instances of a LogMe server or cluster using Apps Manager or the Cloud Foundry Command Line Interface (cf CLI),
 and bind these instances to an application to monitor it, or use them to monitor services.
 Depending on your service plan, a service instance may be associated with a single, dedicated VM,
@@ -53,6 +51,7 @@ a9s LogMe for PCF includes the following key features:
 | **Service instance isolation** | Each LogMe server runs on a dedicated VM to ensure noisy-neighbor protection and align with enterprise security requirements.<br/><br/>a9s LogMe for PCF uses Cloud Foundry [application security groups (ASGs)](https://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) to prevent network connections from unauthorized apps.
 | **Smoke tests** | A post-deployment, smoke-test errand runs basic tests against your installation, ensuring that it is configured properly. |
 | **Deployment updater** | An updater errand updates the stemcell and all provisioned a9s LogMe for PCF service instances to their latest version. |
+| **Syslog Endpoints for Instances** | In the tile a default endpoint for syslog and graphite can be configured for each service instances which is greated by the end user. |
 
 ## <a id="snapshot"></a>Product Snapshot
 
@@ -62,53 +61,50 @@ The following table provides version and version-support information about a9s L
     <th>Element</th>
     <th>Details</th>
     <tr>
-        <td>Tile Version</td>
-        <td>v0.9.0</td>
+        <td>Version</td>
+        <td>v2.0.1</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>August 24, 2017</td>
-    </tr>
-    <tr>
-        <td>Software component version</td>
-        <td>v0.9.0</td>
+        <td>August 24, 2018</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.8.x, v1.9.x, v1.10.x, and v1.11.x</td>
+        <td>v1.12.x, v2.0.x, v2.1.x, and v2.2.x</td>
     </tr>
     <tr>
-        <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.8.x, v1.9.x, v1.10.x, and v1.11.x</td>
+        <td>Compatible Pivotal Application Service version(s):</td>
+        <td>v1.12.x, v2.0.x, v2.1.x, and v2.2.x</td>
     </tr>
     <tr>
         <td>IaaS support</td>
-        <td>AWS, OpenStack, and vSphere</td>
-    </tr>
-    <tr>
-        <td>IPsec support</td>
-        <td>No</td>
+        <td>AWS, Azure, GCP, OpenStack, and Vsphere</td>
     </tr>
 </table>
+\* As of PCF v2.0, <em>Elastic Runtime</em> is renamed <em>Pivotal Application Service (PAS)</em>.
+
+* This is a major release. Upgrades from a9s LogMe for PCF v1.x are not supported. If you previously installed a9s LogMe for PCF v1.x, uninstall it and install the latest version
 
 ## <a id="reqs"></a>Requirements
 
 To install and use a9s LogMe for PCF, you must install the following products and tiles:
 
-* Elastic Runtime, v1.7 or later
-* [a9s Consul DNS](https://network.pivotal.io/products/a9s-consul) for PCF, v1.0.0 or later
-* [a9s BOSH](https://network.pivotal.io/products/a9s-bosh) for PCF, v1.0.0 or later
+* Pivotal Application Service (formerly Elastic Runtime) v1.12 or later
 
-For installation instructions, see [Installing and Configuring a9s LogMe for PCF](./installing.html).
+For more information, see [Installing and Configuring a9s LogMe for PCF](./installing.html).
 
 ## <a id="feedback"></a>Feedback and Support
 
-The anynines team can help you get started and succeed with a9s LogMe for PCF. Technical support, including a service-level agreement, is available with a commercial license.
+a9s LogMe for PCF is an automation toolset for open source LogMe.
+The entire anynines team can help your team  get started and be successful.
+Technical support, including a service level agreement, is available with a commercial license.
 
-If your company has specific LogMe administration policies or configuration best practices,
-the anynines team is happy to incorporate them. Third-party LogMe support organizations are also welcome to assist.
+If your company has specific LogMe administration policies or configuration best practises,
+the anynines team is happy to incorporate them, if applicable.
+Third-party LogMe support organizations are also welcome to assist.
 
-Contributions are welcome and will be investigated by the anynines team. Please send any bugs, feature requests, or questions to <a href="mailto:dssupport@anynines.com">dssupport@anynines.com</a>.
+Contributions are welcome and will be investigated by the anynines team.
+Send any bugs, feature requests, or questions to <a href="mailto:dssupport@anynines.com">dssupport@anynines.com</a>.
 
 ## <a id='license'></a>License
 
