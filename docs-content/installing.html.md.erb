@@ -6,19 +6,17 @@ owner: Partners
 This topic describes how to install and configure a9s LogMe for Pivotal Cloud Foundry (PCF).
 
 
-##<a id='install'></a> Install a9s LogMe for PCF
+## <a id='install'></a> Install a9s LogMe for PCF
 
-To install a9s LogMe for PCF, perform the following steps:
+To install a9s LogMe for PCF, do the following:
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/a9s-logme).
 
-2. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
+1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-3. Click **Add** or **+** (depending on the PCF version) next to the uploaded a9s LogMe for PCF tile in the Ops Manager
-**Available Products** view to add it to your staging area.
+1. Click **Add** or **+** (depending on the PCF version) next to the uploaded a9s LogMe for PCF tile in the Ops Manager **Available Products** view to add it to your staging area.
 
-4. Click the new tile, then click **Settings** to review the configuration settings for each tab.
-  For more information on how to configure the properties on each side-tab, see the following:
+1. Click the new tile, then click **Settings** to review the configuration settings for each tab. For more information on how to configure the properties on each side-tab, see the following:
   * [Assign AZs and Networks](#azs)
   * [Plan Configuration](#plan_configuration)
   * [Syslog](#syslog)
@@ -27,102 +25,83 @@ To install a9s LogMe for PCF, perform the following steps:
   * [Configure Resources](#resource-config)
   * [Name Resolving With Consul](#name-resolving-with-consul)
 
-5. Click **Apply Changes** to deploy the service.
+1. Click **Apply Changes** to deploy the service.
 
 After you install the a9s LogMe for PCF, it is available in the list of Marketplace services. For more information, see [Using a9s LogMe for PCF](./using.html).
 
-
-###<a id="azs"></a>Assign AZs and Networks
+### <a id="azs"></a> Assign AZs and Networks
 
 Use **Assign AZs and Networks** to configure the location of service component and service instance jobs. Configure your network to balance cluster jobs between as many AZs as possible.
 
 <%= image_tag("assign_azs_and_networks.png") %>
 
-###<a id="plan_configuration"></a>Plan Configuration
+### <a id="plan_configuration"></a> Plan Configuration
 
-Define the AZ placement where the service instances will be deployed.
-Define the VM and persistent disk types.
-VM and persistent disk types will be used in the service instance deployments. Disk size and VM size (CPUs and memory) can be configured independently, to create your desired plans, however you must consider that moving from a lager disk to a smaller disk is likely to fail.
+Define the AZ placement where the service instances will be deployed, as well as the VM and persistent disk types. VM and persistent disk types will be used in the service instance deployments. Disk size and VM size (CPUs and memory) can be configured independently, to create your desired plans, however you must consider that moving from a lager disk to a smaller disk is likely to fail.
 
-####Minimum system requirements
+#### <a id='min-sys-reqs'></a> Minimum System Requirements
 
-Disk nano: 2 GB
-Disk small: 5 GB
-Disk medium: 20 GB
-Disk large: 50 GB
-VM nano: 1 CPU, 1 GB RAM, 8 GB Disk
-VM small: 2 CPU, 2 GB RAM, 4 GB Disk
-VM medium: 2 CPU, 4 GB RAM, 8 GB Disk
-VM large: 2 CPU, 8 GB RAM, 30 GB Disk
+Disk nano: 2&nbsp;GB
+Disk small: 5nbsp;GB
+Disk medium: 20nbsp;GB
+Disk large: 50nbsp;GB
+VM nano: 1 CPU, 1nbsp;GB RAM, 8nbsp;GB Disk
+VM small: 2 CPU, 2nbsp;GB RAM, 4nbsp;GB Disk
+VM medium: 2 CPU, 4nbsp;GB RAM, 8nbsp;GB Disk
+VM large: 2 CPU, 8nbsp;GB RAM, 30nbsp;GB Disk
 
 <%= image_tag("plan_configuration.png") %>
 
-###<a id="syslog"></a>Syslog
+### <a id="syslog"></a> Syslog
 
-a9s LogMe provides the possibility to stream the logs of the service components to a syslog endpoint.
-This has no effect on the service instances itself.
+a9s LogMe can stream the logs of the service components to a syslog endpoint. This has no effect on the service instances itself.
 
 <%= image_tag("syslog.png") %>
 
-###<a id="service_configuration"></a>Service Configuration
+### <a id="service_configuration"></a> Service Configuration
 
-At this page a default endpoint for graphite and syslog can be configured. This endpoints can not be deleted or updated by the user.
-F.e. `logs.papertrail.com:44456` for syslog.
+At this page a default endpoint for Graphite and syslog can be configured. This endpoint cannot be deleted or updated by the user. For example, `logs.papertrail.com:44456` for syslog.
 
 <%= image_tag("service_configuration.png") %>
 
-###<a id='errands'></a>Configure Errands
+### <a id='errands'></a> Configure Errands
 
 Use **Errands** to configure the lifecycle errands that run when you install or uninstall a9s LogMe for PCF. The list below describes each errand. For more information, see [Understanding Lifecycle Errands](https://docs.pivotal.io/tiledev/tile-errands.html).
 
 <%= image_tag("errands.png") %>
 
+#### <a id='post-deploy'></a> Post-Deploy Errands
 
-#### Post-Deploy Errands
+* **Run Template Uploader**: This errand is required to configure generic components that are included in a9s LogMe for PCF with LogMe  configurations. Disabling this errand may speed up the deployment of all tiles.
+  <p class="note"><strong>Note:</strong> To ensure your configuration remains up-to-date, disable this errand only when necessary.</p>
 
- * **Run Template Uploader**:
-  This errand is required to configure generic components that are included in a9s LogMe for PCF with LogMe  configurations.
-  Disabling this errand may speed up the deployment of all tiles.
+* **Run Broker Registrar**: This errand registers the a9s LogMe for PCF service broker with Elastic Runtime. This makes the service available in the Marketplace.
 
-  <p class="note"><strong>Note</strong>: To ensure your configuration remains up-to-date, disable this errand only when necessary.</p>
+* **Run Smoke Tests**: This errand runs a series of basic tests against your a9s LogMe for PCF installation to ensure that it is configured properly. Those tests may take a while, probably over 30 minutes.
 
- * **Run Broker Registrar**:
-  This errand registers the a9s LogMe for PCF service broker
-  at the Elastic Runtime. This makes the service available in the Marketplace.
+#### <a id='pre-delete'></a> Pre-Delete Errands
 
- * **Run Smoke Tests**:
- This errand runs a series of basic tests against your a9s LogMe for PCF
- installation to ensure that it is configured properly. Those tests may
- take a while, probably over 30 minutes.
+* **Delete all a9s LogMe instances**: This errand deletes all a9s LogMe instances which were created with `cf create-service` by PCF end users.
+  <p class="note warning"><strong>WARNING:</strong> This is an absolutely destructive task and cannot be undone. All VMs of the service instances will be deleted irrecoverably. If a service instance is bound to an app or service keys are existing, the errand will fail.</p>
 
+* **Run Broker Deregistrar**: This will unregister the a9s LogMe for PCF service broker in Elastic Runtime. This errand removes the a9s LogMe service from the Marketplace.
 
-#### Pre-Delete Errands
+### <a id='resource-config'></a> Configure Resources
 
- * **Delete all a9s LogMe instances**:
-  This errand deletes all a9s LogMe instances which were created with `cf create-service` by PCF end users.
-  <p class="note warning"><strong>WARNING</strong>: This is an absolutly destructive task and can't be undone. All VMs of the service instances will be deleted irrecoverably. In the case a service instance is bound to an app or service keys are existing, the errand will fail.</p>
+You can configure the dimensions of the VMs that host the a9s LogMe for PCF components. This configuration does not cover the dedicated LogMe instances that run on VMs provided by the a9s BOSH tile for PCF. For more information, see [Configure Service Plan VMs](#configure-service-instance).
 
- * **Run Broker Deregistrar**:
-  This will unregister the a9s LogMe for PCF service broker in Elastic Runtime. This errand removes the a9s LogMe service from the Marketplace.
-
-
-###<a id='resource-config'></a> Configure Resources
-
-You can configure the dimensions of the VMs that host the a9s LogMe for PCF components.
-This configuration does not cover the dedicated LogMe instances that run on VMs provided by the a9s BOSH tile for PCF.
-For more information, see [Configure Service Plan VMs](#configure-service-instance).
-
-<p class="note"><strong>Note</strong>: anynines recommends using a VM type of large or greater to support the tile compilation.</p>
+<p class="note"><strong>Note:</strong> anynines recommends using a VM type of large or greater to support the tile compilation.</p>
 
 <%= image_tag("resource_config.png") %>
 
-##<a id='deployment_updater'></a>Update Existing Service Instances
+
+## <a id='deployment_updater'></a> Update Existing Service Instances
 
 After updating the a9s LogMe for PCF tile, run the Deployment Updater errand to update all provisioned service instances to the new service and stemcell versions.
 
-<p class="note"><strong>Note</strong>: anynines recommends running the <a href="./installing.html#errands" target="_blank">smoke tests</a> before running this errand.</p>
+<p class="note"><strong>Note:</strong> anynines recommends running the <a href="./installing.html#errands" target="_blank">smoke tests</a> before running this errand.</p>
 
-<p class="note"><strong>Note</strong>: To run the errand, you must know how to use the BOSH Director. For more information, see <a href="http://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare" target="_blank">Advanced Troubleshooting with the BOSH CLI</a>.</p>
+<p class="note"><strong>Note:</strong> To run the errand, you must know how to use the BOSH Director. For more information, see <a href="http://docs.pivotal.io/pivotalcf/1-9/customizing/trouble-advanced.html#prepare" target="_blank">Advanced Troubleshooting with the BOSH CLI</a>.</p>
 
 1. SSH into the Ops Manager VM:
 <pre class="terminal">
@@ -172,15 +151,16 @@ Task 14855 done
 
 Succeeded
 </pre>
-<p class="note"><strong>Note</strong>: Depending on the number of service instances, the Deployment Updater may take significant time to finish running. BOSH shows no logging output while the errand runs.</p>
+<p class="note"><strong>Note:</strong> Depending on the number of service instances, the Deployment Updater may take significant time to finish running. BOSH shows no logging output while the errand runs.</p>
 
-##<a id='name-resolving-with-consul'></a>Name Resolving With Consul
+
+## <a id='name-resolving-with-consul'></a> Name Resolving With Consul
 
 a9s LogMe for PCF comes with its own highly available Consul cluster for service discovery and service failover procedures.
 
 Consul is a highly available (HA) service discovery and configuration tool, which includes features such as failure detection, an HA key/value store, and an HA DNS service that you can control through a HTTP-based REST interface.
 
-To make use of this feature you must talk to your administrator of your corporates nameservers to setup a delegation of a9s LogMe hostnames. The hostnames of these queries end with ` a9s-logme-consul` by default and must be delegated to the IP addresses of the consul server within the a9s LogMe tile. To figure out the IP addresses check the status tab of the tile and look for `a9s Consul Cluster`.
+To make use of this feature you must talk to your administrator of your corporates nameservers to setup a delegation of a9s LogMe hostnames. The hostnames of these queries end with `a9s-logme-consul` by default and must be delegated to the IP addresses of the consul server within the a9s LogMe tile. To figure out the IP addresses, check the status tab of the tile and look for `a9s Consul Cluster`.
 <%= image_tag("status_tab.png") %>
 
-For general information about Consul, see <a href="https://www.consul.io/" target="_blank">Consul by HashiCorp</a>.
+For general information about Consul, see [Consul by HashiCorp](https://www.consul.io/).
