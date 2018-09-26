@@ -14,13 +14,14 @@ owner: Partners
 
 This topic describes how to use a9s LogMe for Pivotal Cloud Foundry (PCF) after it has been successfully [installed](./installing.html).
 
-##<a id='using-with-app'></a>  Stream App Logs to LogMe
 
-To use a9s LogMe for PCF with an app, create a service instance and bind the service instance to your app. For more information on managing service instances, see <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html" target="_blank">Managing Service Instances with the cf CLI</a>.
+## <a id='using-with-app'></a> Stream App Logs to LogMe
 
-###<a id='view-service'></a> View the Service Offering
+To use a9s LogMe for PCF with an app, create a service instance and bind the service instance to your app. For more information on managing service instances, see [Managing Service Instances with the cf CLI](http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html).
 
-After the tile is installed, run `cf marketplace` to see `a9s-logme` service offering and its service plans:
+### <a id='view-service'></a> View the Service Offering
+
+After the tile is installed, run `cf marketplace` to see the `a9s-logme` service offering and its service plans:
 
 <pre class="terminal">
 $ cf marketplace
@@ -32,33 +33,33 @@ a9s-logme  logme-single-small, logme-single-big, logme-cluster-small, logme-clus
 
 For more information on available service plans, see [Configure Service Plans](./installing.html#configure-service-instance).
 
-###<a id='create-instance'></a> Create a LogMe Service Instance
+### <a id='create-instance'></a> Create a LogMe Service Instance
 
-To provision a LogMe instance, run `cf create-service SERVICE-NAME PLAN-NAME INSTANCE-NAME` where `INSTANCE-NAME` is any name you want to give the instance you create.
+To provision a LogMe instance, run `cf create-service SERVICE-NAME PLAN-NAME INSTANCE-NAME`, where `INSTANCE-NAME` is any name you want to give the instance you create.
 
 <pre class="terminal">
 $ cf create-service a9s-logme logme-single-small my-logme-service
 </pre>
 
-<p class="note"><strong>Note</strong>: This may take several minutes.</p>
+<p class="note"><strong>Note:</strong> This may take several minutes.</p>
 
 Run the `cf services` command to list all your service instances. To view the status of a specific service instance, run `cf service INSTANCE-NAME`.
 
-###<a id='bind-instance'></a> Bind the Logme Service to Your App
+### <a id='bind-instance'></a> Bind the LogMe Service to Your App
 
-After the LogMe service instance is created, run `cf bind-service APP-NAME INSTANCE-NAME` to bind the LogMe service to any App whose logs should be streamed:
+After the LogMe service instance is created, run `cf bind-service APP-NAME INSTANCE-NAME` to bind the LogMe service to any app whose logs should be streamed:
 
 <pre class="terminal">
 $ cf bind-service my-app my-logme-service
 </pre>
 
-###<a id='restage'></a> Restage or Restart Your App
+### <a id='restage'></a> Restage or Restart Your App
 
 To enable your app to access the LogMe service instance, run `cf restage APP-NAME` or `cf restart APP-NAME`.
 
-###<a id='see-app-logs'></a> See Your App's logs
+### <a id='see-app-logs'></a> See Your App's logs
 
-Perform the following steps to see your application's logs:
+To see your app's logs, do the following:
 
 1. Grap the dashboard URL with `cf service my-logme-service`:
   <pre class="terminal">
@@ -77,27 +78,28 @@ Perform the following steps to see your application's logs:
   Updated: 2017-07-22T17:13:26Z
   </pre>
 
-2. Browse to the dashboard URL and authenticate on the redirected page with your Cloud Foundry credentials:
+1. Navigate to the dashboard URL and authenticate on the redirected page with your Cloud Foundry credentials:
 <%= image_tag("pcf-authentication-page.png") %>
 
-3. Click **Authorize** to approve the authorization request:
+1. Click **Authorize** to approve the authorization request:
 <%= image_tag("pcf-authorization-page.png") %>
 
-4. In the dashboard that appears, specify the `Index name or pattern` and the `Time-field name`. For the `Index name or pattern` you could use the prefilled value.
+1. In the dashboard that appears, specify the `Index name or pattern` and the `Time-field name`. For the `Index name or pattern`, you can use the prefilled value.
 <%= image_tag("dashboard-index.png") %>
 For the `Time-field name` use the only available value, `@timestamp`.
 <%= image_tag("dashboard-timestamp.png") %>
-5. Click **Create** to apply the settings.
 
-Your application's logs appear on the Discover tab of the dashboard:<br><br>
+1. Click **Create** to apply the settings.
+
+Your app's logs appear on the Discover tab of the dashboard:<br><br>
 <%= image_tag("dashboard-app-logs.png") %>
 
 
-##<a id='using-with-service'></a> Stream a9s Service Logs to LogMe
+## <a id='using-with-service'></a> Stream a9s Service Logs to LogMe
 
-To use a LogMe service instance to monitor another service instance, follow the two first steps of <a href='#using-with-app'>Stream application logs to LogMe</a> to create an a9s LogMe service instance.
+To use a LogMe service instance to monitor another service instance, follow the two first steps of [Stream application logs to LogMe](#using-with-app) to create an a9s LogMe service instance.
 
-###<a id='create-key'></a> Create a Service Key
+### <a id='create-key'></a> Create a Service Key
 
 After the LogMe service instance is created, run `cf create-service-key my-logme-service SERVICE-KEY-NAME` to create a new key for your service instance:
 
@@ -112,18 +114,18 @@ $ cf service-key my-logme-service key1
 }
 </pre>
 
-###<a id='update-service'></a> Update Your Service
+### <a id='update-service'></a> Update Your Service
 
-Run `cf update-service INSTANCE-NAME -c PARAMETERS-AS-JSON` to update the syslog endpoint of the instance you want to monitor with LogMe. For this, you need to give the URL given by the `cf service-key` command as a value for the *syslog* key.
+Run `cf update-service INSTANCE-NAME -c PARAMETERS-AS-JSON` to update the syslog endpoint of the instance you want to monitor with LogMe. For this, you must give the URL given by the `cf service-key` command as a value for the *syslog* key.
 
 <pre class="terminal">
 $ cf update-service service-instance-to-monitor \
 -c '{"syslog": ["10.0.1.24:514"]}'
 </pre>
 
-###<a id='see-service-logs'></a> See Your Service's Logs
+### <a id='see-service-logs'></a> See Your Service's Logs
 
-Perform the following steps to see your service's logs:
+To see your service's logs, do the following:
 
 1. Grap the dashboard URL with `cf service my-logme-service`:
   <pre class="terminal">
@@ -142,27 +144,28 @@ Perform the following steps to see your service's logs:
   Updated: 2017-07-22T17:13:26Z
   </pre>
 
-2. Browse to the dashboard URL and authenticate on the redirected page with your Cloud Foundry credentials:
+1. Browse to the dashboard URL and authenticate on the redirected page with your Cloud Foundry credentials:
 <%= image_tag("pcf-authentication-page.png") %>
 
-3. Click **Authorize** to approve the authorization request:
+1. Click **Authorize** to approve the authorization request:
 <%= image_tag("pcf-authorization-page.png") %>
 
-4. The dashboard appears. Specify the `Index name or pattern` and the `Time-field name`. For the `Index name or pattern` you can use the prefilled value.
+1. The dashboard appears. Specify the `Index name or pattern` and the `Time-field name`. For the `Index name or pattern`, you can use the prefilled value.
 <%= image_tag("dashboard-index.png") %>
 For the `Time-field name` use the only available value, `@timestamp`.
 <%= image_tag("dashboard-timestamp.png") %>
-5. Click **Create** to apply the settings.
+
+1. Click **Create** to apply the settings.
 
 Your service's logs appear on the Discover tab of the dashboard:<br><br>
 <%= image_tag("dashboard-service-logs.png") %>
 
 
-##<a id='deleting-for-app'></a> Stop Streaming App Logs to LogMe
+## <a id='deleting-for-app'></a> Stop Streaming App Logs to LogMe
 
 Follow the steps below to stop streaming the logs of your applications to LogMe.
 
-###<a id='list-instances'></a> List Available Services
+### <a id='list-instances'></a> List Available Services
 
 Run `cf services` to list available service instances and get the name of the service instance you want to delete.
 
@@ -178,15 +181,15 @@ my-logme-service     a9s-logme     logme-single-small     a9s-logme-app     crea
 
 This example shows that `my-logme-service` is bound to the `a9s-logme-app` app.
 
-###<a id='unbind-instance'></a> Unbind the Service Instance
-#
+### <a id='unbind-instance'></a> Unbind the Service Instance
+
 If your LogMe service instance is bound to an app, you will need to unbind them first. Run `cf unbind-service APP-NAME INSTANCE-NAME` to unbind the service from your app:
 
 <pre class="terminal">
 $ cf unbind-service a9s-logme-app my-logme-service
 </pre>
 
-###<a id='delete-instance-for-app'></a> Delete the Service Instance
+### <a id='delete-instance-for-app'></a> Delete the Service Instance
 
 Run `cf delete-service INSTANCE-NAME` to delete the service instance:
 
@@ -194,41 +197,34 @@ Run `cf delete-service INSTANCE-NAME` to delete the service instance:
 $ cf delete-service my-logme-service
 </pre>
 
-<p class="note"><strong>Note</strong>: This may take several minutes.</p>
+<p class="note"><strong>Note:</strong> This may take several minutes.</p>
 
-Deleting a service deprovisions the corresponding infrastructure resources. Run
-the `cf services` command to view the deletion status.
+Deleting a service deprovisions the corresponding infrastructure resources. Run the `cf services` command to view the deletion status.
 
 
-##<a id='deleting-for-service'></a> Stop Streaming Service Logs to LogMe
+## <a id='deleting-for-service'></a> Stop Streaming Service Logs to LogMe
 
 Follow the steps below to stop streaming the logs of your services to LogMe.
 
-###<a id='overwrite-config-for-service'></a> Overwrite Your Service configuration
+### <a id='overwrite-config-for-service'></a> Overwrite Your Service Configuration
 
-If you want to stop streaming your service instance logs to your LogMe instance,
-you can overwrite the syslog key of your service configuration.
+If you want to stop streaming your service instance logs to your LogMe instance, you can overwrite the syslog key of your service configuration.
 
-Run `cf update-service INSTANCE-NAME -c PARAMETERS-AS-JSON` to update the syslog
-endpoint of the instance you don't want to monitor anymore. For this, you need
-to overwrite the value of the *syslog* key with an empty string.
+Run `cf update-service INSTANCE-NAME -c PARAMETERS-AS-JSON` to update the syslog endpoint of the instance you do not want to monitor anymore. For this, you must overwrite the value of the *syslog* key with an empty string.
 
 <pre class="terminal">
 $ cf update-service service-instance-to-monitor -c '{"syslog": [""]}'
 </pre>
 
+### <a id='delete-instance-for-service'></a> Delete the Service Instance
 
-###<a id='delete-instance-for-service'></a> Delete the Service Instance
-
-If you are not using it anymore, you may want to delete the service key and the
-service instance itself. Run `cf delete-service-key INSTANCE-NAME SERVICE-KEY-NAME`
-and `cf delete-service INSTANCE-NAME` to do so.
+If you are not using it anymore, you may want to delete the service key and the service instance itself. Run `cf delete-service-key INSTANCE-NAME SERVICE-KEY-NAME` and `cf delete-service INSTANCE-NAME` to do so.
 
 <pre class="terminal">
 $ cf delete-service-key my-logme-service key1
 $ cf delete-service my-logme-service
 </pre>
 
-<p class="note"><strong>Note</strong>: This may take several minutes.</p>
+<p class="note"><strong>Note:</strong> This may take several minutes.</p>
 
 Deleting a service deprovisions the corresponding infrastructure resources. Run the `cf services` command to view the deletion status.
