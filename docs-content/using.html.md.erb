@@ -2,15 +2,6 @@
 title: Using a9s LogMe for PCF
 owner: Partners
 ---
-<style>
-    .note.warning {
-        background-color: #fdd;
-        border-color: #fbb
-    }
-    .note.warning:before {
-        color: #f99;
-     }
-</style>
 
 This topic describes how to use a9s LogMe for Pivotal Cloud Foundry (PCF) after it has been successfully [installed](./installing.html).
 
@@ -31,7 +22,7 @@ service    plans                                                                
 a9s-logme  logme-single-small, logme-single-big, logme-cluster-small, logme-cluster-big     This is the anynines LogMe service.
 </pre>
 
-For more information on available service plans, see [Configure Service Plans](./installing.html#configure-service-instance).
+For more information on available service plans, see [Configure Service Plans](./installing.html#plan-configuration).
 
 ### <a id='create-instance'></a> Create a LogMe Service Instance
 
@@ -228,3 +219,51 @@ $ cf delete-service my-logme-service
 <p class="note"><strong>Note:</strong> This may take several minutes.</p>
 
 Deleting a service deprovisions the corresponding infrastructure resources. Run the `cf services` command to view the deletion status.
+
+## <a id='custom-parameters'></a> Custom Parameters
+
+### <a id='data-retention'></a> Data Retention
+
+In order to clean up old Elasticsearch indices a tool called Curator runs
+periodically. By default it deletes indices older than *30 days*.
+
+You can overwrite that configuration using the custom parameters
+`curator_retention_unit` and `curator_retention_period`.
+
+For example:
+```shell
+$ cf create-service a9s-logme logme-single-small my-logme-service -c '{ "curator_retention_unit": "days", "curator_retention_period": 90 }'
+$ cf update-service my-logme-service -c '{ "curator_retention_unit": "hours", "curator_retention_period": 3 }'
+```
+
+For the `curator_retention_unit` you can use the following values: `seconds`,
+`minutes`, `hours`, `days`, `weeks`, `months`, `years`].
+For the `curator_retention_period` you can use a positive integer value bigger than zero.
+
+## <a id='setup-disk-usage_alerts'></a> Setup Disk Usage Alerts
+
+Each service instance node comes with the **a9s Parachute** component. This component monitors *ephemeral* and *persistent* disk usage. If one of these disk usages reaches the configured threshold of 80%, the **a9s Parachute** stops all processes on that node. Once the processes gets stopped, **a9s Parachute** logs the following messages to its log directory:
+
+```
+Limit reached for: persistent disk
+```
+
+or
+
+```
+Limit reached for: ephemeral disk
+```
+
+### <a id='how-to-restart-stopped-instances'></a> How to restart stopped instances
+
+To restart a stopped instance, the user can use the `cf update-service` command to set the `max_disk_threshold` custom parameter. All values between 0 and 100 are allowed.
+Updating the instance does two things, at first the limit is set to the new value and the instance will be restarted.
+To set the value to 90% do the following:
+
+```
+$ cf update-service <SERVICE_NAME> -c '{"max_disk_threshold": "90"}'
+```
+
+The update will take some minutes until the service is restarted.
+
+**IMPORTANT:** This is only a temporary solution. The nodes will be stopped when the threshold is reached again. For a long term solution the service instance must be updated to a bigger plan.

@@ -1,0 +1,110 @@
+---
+title: Handle Stack Traces
+owner: Partners
+---
+
+This topic describes how to handle stack traces with a9s LogMe for PCF.
+
+## <a id='handle-stack-traces'></a> Handle Stack Traces
+
+Java stack traces typically contain more than one line of content. Logstash and
+the syslog protocol at all on the other hand, does not support multiline
+log-events per se. It is however possible to encode the newline character `\n`
+as `\u2028` (line separator). Logstash will then read the stack trace as one
+log-event and save it to Elasticsearch with the line separator converted back to
+newline for readability. Without this fix, each line of the stack trace would
+show up as an event of its own in Elasticsearch.
+
+The application needs to be configured to use the `\u2028` line separator
+instead of the default `\n` line separator. This should be done by configuring
+the application logging accordingly.
+
+It follows an example for Java Spring applications.
+
+### <a id='java-spring'></a> Java Spring
+
+To get your Exceptions to be recognized as one events instead of many one-lined
+events by Logstash, you need to change your log format.
+
+#### <a id='application-properties'></a> application.properties
+
+To do this, you can add the following snippet to logging.pattern.console in the
+application.properties file of your Java Spring application:
+
+```
+%replace(%xException){'\n','\u2028'}%nopex
+```
+
+With this snippet every line feed `\n` in the stack trace will be converted
+into `\u2028` (line separator). The %nopex part means that the original text will
+not be printed/logged.
+
+If your logging config is just this:
+
+```
+logging.pattern.console=%replace(%xException){'\n','\u2028'}%nopex%s
+```
+
+Then all you’ll log will be exceptions. As you probably want to log other
+events too, you can add above snippet to an existing config. This is shown in
+an example:
+
+Assume that your logging config is currently the following:
+
+```
+logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} - %msg%n
+```
+
+This just prints the date, time and then the log message. The `%n` at the end
+is of course the newline and probably also the last thing you’ll output per
+logged event. To add the replace rule to this config, place it in the very
+end, but before the final `%n` so that your exception will still be terminated
+by a newline. Like this:
+
+```
+logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} - %msg%replace(%xException){'\n','\u2028'}%nopex%n
+```
+
+This causes your regular logging events to print as usual and only exceptions
+(or rather: their stack traces) will be manipulated.
+
+#### <a id='yaml-xml-logging'></a> Yaml or XML logging configurations
+
+In case you use a yaml or xml based format, the method is still the same, just
+add the snippet above just before the final newline of your logging pattern.
+
+Say this is your logback-spring.xml:
+
+```xml
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%n</pattern>
+    </encoder>
+  </appender>
+  <root level="debug">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>
+```
+
+You have to make same kind of change as for application.properties, but you
+have to do it for every class that may log Exceptions to stdout. For this
+example the logback-spring.xml would look like so:
+
+```xml
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%replace(%xException){'\n','\u2028'}%nopex%n</pattern>
+    </encoder>
+  </appender>
+  <root level="debug">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>
+```
+
+This solution will work for any type of logging configuration, as long as it
+supports the replace-format of the code snippet
+`%replace(%xException){'\n','\u2028'}%nopex.`

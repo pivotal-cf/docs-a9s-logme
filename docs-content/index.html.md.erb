@@ -3,15 +3,6 @@ title: a9s LogMe for PCF (Beta)
 owner: Partners
 ---
 
-<style>
-    .note.warning {
-        background-color: #fdd;
-        border-color: #fbb
-    }
-    .note.warning:before {
-        color: #f99;
-     }
-</style>
 <p class="note warning"><strong>WARNING:</strong> The a9s LogMe for Pivotal Cloud Foundry (PCF) tile is currently in beta and is intended for evaluation and test purposes only. Do not use this product in a PCF production environment.</p>
 
 This documentation describes the a9s LogMe for PCF tile. a9s LogMe for PCF enables on-demand provisioning of a pre-configured [ELK](https://www.elastic.co/elk-stack) (Elasticsearch Logstash Kibana) Stack. The ELK stack makes service and application logs queriable, visualizable, and scalable. Developers can create instances of a LogMe server or cluster using Apps Manager or the Cloud Foundry Command Line Interface (cf CLI), and bind these instances to an application to monitor it, or use them to monitor services. Depending on your service plan, a service instance may be associated with a single, dedicated VM, or a set of VMs consisting of multiple VMs containing a LogMe cluster.
@@ -36,7 +27,11 @@ a9s LogMe for PCF includes the following key features:
 | **Smoke tests** | A post-deployment, smoke-test errand runs basic tests against your installation, ensuring that it is configured properly. |
 | **Deployment updater** | An updater errand updates the stemcell and all provisioned a9s LogMe for PCF service instances to their latest version. |
 | **Syslog Endpoints for Instances** | In the tile a default endpoint for syslog and Graphite can be configured for each service instances which is greated by the end user. |
-
+| **Consul Domain configurable** | The consul domain can now be configured. |
+| **BOSH DNS Handler** | a9s BOSH DNS handler added to make a9s service instances accessible from diego cells. |
+| **a9s-pg Backup** | Added backup option for a9s-pg. |
+| **Instance Sharing** | a9s MySQL no supports instance sharing between orgs an spaces, see [documentation](https://docs.pivotal.io/pivotalcf/2-4/devguide/services/sharing-instances.html). |
+| **Update Xenial** | Update to ubuntu xenial stemcells. |
 
 ## <a id="snapshot"></a> Product Snapshot
 
@@ -49,19 +44,19 @@ The following table provides version and version-support information about a9s L
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v2.0.1</td>
+        <td>v2.1.0</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>August 24, 2018</td>
+        <td>February 14, 2019</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.12.x, v2.0.x, v2.1.x, and v2.2.x</td>
+        <td>v2.1.x, v2.2.x, v2.3.x, and v2.4.x</td>
     </tr>
     <tr>
         <td>Compatible Pivotal Application Service version(s):</td>
-        <td>v1.12.x, v2.0.x, v2.1.x, and v2.2.x</td>
+        <td>v2.1.x, v2.2.x, v2.3.x, and v2.4.x</td>
     </tr>
     <tr>
         <td>IaaS support</td>
@@ -76,7 +71,7 @@ The following table provides version and version-support information about a9s L
 
 To install and use a9s LogMe for PCF, you must install the following products and tiles:
 
-* Pivotal Application Service (formerly Elastic Runtime) v1.12 or later
+* Pivotal Application Service (formerly Elastic Runtime) v2.1 or later
 
 For more information, see [Installing and Configuring a9s LogMe for PCF](./installing.html).
 
