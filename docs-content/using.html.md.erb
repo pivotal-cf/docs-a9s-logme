@@ -3,7 +3,7 @@ title: Using a9s LogMe for PCF
 owner: Partners
 ---
 
-This topic describes how to use a9s LogMe for Pivotal Cloud Foundry (PCF) after it has been successfully [installed](./installing.html).
+This topic describes how to use a9s LogMe for Pivotal Cloud Foundry (PCF) after it is installed.
 
 
 ## <a id='using-with-app'></a> Stream App Logs to LogMe
@@ -22,7 +22,7 @@ service    plans                                                                
 a9s-logme  logme-single-small, logme-single-big, logme-cluster-small, logme-cluster-big     This is the anynines LogMe service.
 </pre>
 
-For more information on available service plans, see [Configure Service Plans](./installing.html#plan-configuration).
+For more information on available service plans, see [Plan Configuration](./installing.html#plan-configuration).
 
 ### <a id='create-instance'></a> Create a LogMe Service Instance
 
@@ -48,11 +48,11 @@ $ cf bind-service my-app my-logme-service
 
 To enable your app to access the LogMe service instance, run `cf restage APP-NAME` or `cf restart APP-NAME`.
 
-### <a id='see-app-logs'></a> See Your App's logs
+### <a id='see-app-logs'></a> See Your App Logs
 
-To see your app's logs, do the following:
+To see your app logs, do the following:
 
-1. Grap the dashboard URL with `cf service my-logme-service`:
+1. Find the dashboard URL with `cf service my-logme-service`:
   <pre class="terminal">
   Service instance: my-logme-service
   Service: a9s-logme
@@ -69,26 +69,34 @@ To see your app's logs, do the following:
   Updated: 2017-07-22T17:13:26Z
   </pre>
 
-1. Navigate to the dashboard URL and authenticate on the redirected page with your Cloud Foundry credentials:
-<%= image_tag("pcf-authentication-page.png") %>
+1. Navigate to the dashboard URL and authenticate on the redirected page with your PCF credentials:
+
+    <%= image_tag("pcf-authentication-page.png") %>
 
 1. Click **Authorize** to approve the authorization request:
-<%= image_tag("pcf-authorization-page.png") %>
 
-1. In the dashboard that appears, specify the `Index name or pattern` and the `Time-field name`. For the `Index name or pattern`, you can use the prefilled value.
-<%= image_tag("dashboard-index.png") %>
-For the `Time-field name` use the only available value, `@timestamp`.
-<%= image_tag("dashboard-timestamp.png") %>
+    <%= image_tag("pcf-authorization-page.png") %>
+
+1. In the dashboard that appears, specify the `Index name or pattern` and the `Time-field name`.
+  For the `Index name or pattern`, you can use the default value.
+
+    <%= image_tag("dashboard-index.png") %>
+
+    For the `Time-field name` use the only available value, `@timestamp`.
+
+    <%= image_tag("dashboard-timestamp.png") %>
 
 1. Click **Create** to apply the settings.
 
-Your app's logs appear on the Discover tab of the dashboard:<br><br>
-<%= image_tag("dashboard-app-logs.png") %>
+    Your app logs appear on the Discover tab of the dashboard:
+
+    <%= image_tag("dashboard-app-logs.png") %>
 
 
 ## <a id='using-with-service'></a> Stream a9s Service Logs to LogMe
 
-To use a LogMe service instance to monitor another service instance, follow the two first steps of [Stream application logs to LogMe](#using-with-app) to create an a9s LogMe service instance.
+To use a LogMe service instance to monitor another service instance,
+follow the two first steps of [Stream App Logs to LogMe](#using-with-app) above to create an a9s LogMe service instance.
 
 ### <a id='create-key'></a> Create a Service Key
 
@@ -107,18 +115,19 @@ $ cf service-key my-logme-service key1
 
 ### <a id='update-service'></a> Update Your Service
 
-Run `cf update-service INSTANCE-NAME -c PARAMETERS-AS-JSON` to update the syslog endpoint of the instance you want to monitor with LogMe. For this, you must give the URL given by the `cf service-key` command as a value for the *syslog* key.
+Run `cf update-service INSTANCE-NAME -c PARAMETERS-AS-JSON` to update the syslog endpoint of the instance you want to monitor with LogMe.
+For this, you must give the URL given by the `cf service-key` command as a value for the *syslog* key.
 
 <pre class="terminal">
 $ cf update-service service-instance-to-monitor \
 -c '{"syslog": ["10.0.1.24:514"]}'
 </pre>
 
-### <a id='see-service-logs'></a> See Your Service's Logs
+### <a id='see-service-logs'></a> See Your Service Logs
 
-To see your service's logs, do the following:
+To see your service logs, do the following:
 
-1. Grap the dashboard URL with `cf service my-logme-service`:
+1. Find the dashboard URL with `cf service my-logme-service`:
   <pre class="terminal">
   Service instance: my-logme-service
   Service: a9s-logme
@@ -135,21 +144,28 @@ To see your service's logs, do the following:
   Updated: 2017-07-22T17:13:26Z
   </pre>
 
-1. Browse to the dashboard URL and authenticate on the redirected page with your Cloud Foundry credentials:
-<%= image_tag("pcf-authentication-page.png") %>
+1. Browse to the dashboard URL and authenticate on the redirected page with your PCF credentials:
+
+    <%= image_tag("pcf-authentication-page.png") %>
 
 1. Click **Authorize** to approve the authorization request:
-<%= image_tag("pcf-authorization-page.png") %>
 
-1. The dashboard appears. Specify the `Index name or pattern` and the `Time-field name`. For the `Index name or pattern`, you can use the prefilled value.
-<%= image_tag("dashboard-index.png") %>
-For the `Time-field name` use the only available value, `@timestamp`.
-<%= image_tag("dashboard-timestamp.png") %>
+    <%= image_tag("pcf-authorization-page.png") %>
+
+1. The dashboard appears.
+   Specify the `Index name or pattern` and the `Time-field name`. For the `Index name or pattern`, you can use the default value.
+
+    <%= image_tag("dashboard-index.png") %>
+
+    For the `Time-field name` use the only available value, `@timestamp`.
+
+    <%= image_tag("dashboard-timestamp.png") %>
 
 1. Click **Create** to apply the settings.
 
-Your service's logs appear on the Discover tab of the dashboard:<br><br>
-<%= image_tag("dashboard-service-logs.png") %>
+    Your service logs appear on the Discover tab of the dashboard:<br><br>
+
+    <%= image_tag("dashboard-service-logs.png") %>
 
 
 ## <a id='deleting-for-app'></a> Stop Streaming App Logs to LogMe
@@ -190,7 +206,7 @@ $ cf delete-service my-logme-service
 
 <p class="note"><strong>Note:</strong> This may take several minutes.</p>
 
-Deleting a service deprovisions the corresponding infrastructure resources. Run the `cf services` command to view the deletion status.
+Deleting a service de-provisions the corresponding infrastructure resources. Run the `cf services` command to view the deletion status.
 
 
 ## <a id='deleting-for-service'></a> Stop Streaming Service Logs to LogMe
@@ -218,7 +234,7 @@ $ cf delete-service my-logme-service
 
 <p class="note"><strong>Note:</strong> This may take several minutes.</p>
 
-Deleting a service deprovisions the corresponding infrastructure resources. Run the `cf services` command to view the deletion status.
+Deleting a service de-provisions the corresponding infrastructure resources. Run the `cf services` command to view the deletion status.
 
 ## <a id='custom-parameters'></a> Custom Parameters
 

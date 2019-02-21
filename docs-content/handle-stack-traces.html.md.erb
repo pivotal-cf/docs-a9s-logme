@@ -7,11 +7,11 @@ This topic describes how to handle stack traces with a9s LogMe for PCF.
 
 ## <a id='handle-stack-traces'></a> Handle Stack Traces
 
-Java stack traces typically contain more than one line of content. Logstash and
-the syslog protocol at all on the other hand, does not support multiline
-log-events per se. It is however possible to encode the newline character `\n`
-as `\u2028` (line separator). Logstash will then read the stack trace as one
-log-event and save it to Elasticsearch with the line separator converted back to
+Java stack traces typically contain more than one line of content.
+On the other hand, Logstash and the syslog protocol do not support multi-line
+log-events per se. However, it is possible to encode the newline character `\n`
+as `\u2028` (line separator). Logstash then reads the stack trace as one
+log-event and saves it to Elasticsearch with the line separator converted back to
 newline for readability. Without this fix, each line of the stack trace would
 show up as an event of its own in Elasticsearch.
 
@@ -19,11 +19,11 @@ The application needs to be configured to use the `\u2028` line separator
 instead of the default `\n` line separator. This should be done by configuring
 the application logging accordingly.
 
-It follows an example for Java Spring applications.
+Below is an example for Java Spring applications.
 
 ### <a id='java-spring'></a> Java Spring
 
-To get your Exceptions to be recognized as one events instead of many one-lined
+To have your exceptions recognized as one event instead of many one-lined
 events by Logstash, you need to change your log format.
 
 #### <a id='application-properties'></a> application.properties
@@ -35,9 +35,9 @@ application.properties file of your Java Spring application:
 %replace(%xException){'\n','\u2028'}%nopex
 ```
 
-With this snippet every line feed `\n` in the stack trace will be converted
-into `\u2028` (line separator). The %nopex part means that the original text will
-not be printed/logged.
+With this snippet, every line feed `\n` in the stack trace is converted
+into `\u2028` (line separator). The %nopex part means that the original text is
+not printed/logged.
 
 If your logging config is just this:
 
@@ -45,9 +45,9 @@ If your logging config is just this:
 logging.pattern.console=%replace(%xException){'\n','\u2028'}%nopex%s
 ```
 
-Then all you’ll log will be exceptions. As you probably want to log other
-events too, you can add above snippet to an existing config. This is shown in
-an example:
+Then you only log exceptions. As you probably want to log other
+events too, you can add the snippet above to an existing config. This is shown in
+the example.
 
 Assume that your logging config is currently the following:
 

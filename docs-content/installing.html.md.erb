@@ -1,5 +1,5 @@
 ---
-title: Installing and Configuring the a9s LogMe for PCF
+title: Installing and Configuring a9s LogMe for PCF
 owner: Partners
 ---
 
@@ -14,9 +14,12 @@ To install a9s LogMe for PCF, do the following:
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-1. Click **Add** or **+** (depending on the PCF version) next to the uploaded a9s LogMe for PCF tile in the Ops Manager **Available Products** view to add it to your staging area.
+1. Click **Add** or **+** (depending on the PCF version) next to the uploaded
+   a9s LogMe for PCF tile in the Ops Manager **Available Products** view to add it
+   to your staging area.
 
-1. Click the new tile, then click **Settings** to review the configuration settings for each tab. For more information on how to configure the properties on each side-tab, see the following:
+1. Click the new tile, then click **Settings** to review the configuration settings for each tab.
+   For more information on how to configure the properties on each side-tab, see the following:
 * [Assign AZs and Networks](installing.html#azs)
 * [Plan Configuration](installing.html#plan-configuration)
 * [Backup Configuration](installing.html#backup_configuration)
@@ -27,36 +30,44 @@ To install a9s LogMe for PCF, do the following:
 
 1. Click **Apply Changes** to deploy the service.
 
-After you install the a9s LogMe for PCF, it is available in the list of Marketplace services. For more information, see [Using a9s LogMe for PCF](./using.html).
+After you install the a9s LogMe for PCF, it is available in the list of Marketplace services.
+For more information, see [Using a9s LogMe for PCF](./using.html).
 
 ### <a id="azs"></a> Assign AZs and Networks
 
-Use **Assign AZs and Networks** to configure the location of service component and service instance jobs. Configure your network to balance cluster jobs between as many AZs as possible.
+Use **Assign AZs and Networks** to configure the location of service component
+and service instance jobs. Configure your network to balance cluster jobs
+between as many AZs as possible.
 
 <%= image_tag("assign_azs_and_networks.png") %>
 
 ### <a id="plan-configuration"></a> Plan Configuration
 
-Define the AZ placement where the service instances will be deployed, as well as the VM and persistent disk types. VM and persistent disk types will be used in the service instance deployments. Disk size and VM size (CPUs and memory) can be configured independently, to create your desired plans, however you must consider that moving from a lager disk to a smaller disk is likely to fail.
+Define the AZ placement where the service instances will be deployed, as well
+as the VM and persistent disk types. VM and persistent disk types will be used
+in the service instance deployments. Disk size and VM size (CPUs and memory)
+can be configured independently, to create your desired plans, however, you must
+consider that moving from a lager disk to a smaller disk is likely to fail.
 
 #### <a id='min-sys-reqs'></a> Minimum System Requirements
 
 | Resource | Size |
 |----------|------|
 | Disk nano | 2&nbsp;GB |
-| Disk small | 5nbsp;GB |
-| Disk medium | 20nbsp;GB |
-| Disk large | 50nbsp;GB |
-| VM nano | 1 CPU, 1nbsp;GB RAM, 8nbsp;GB Disk |
-| VM small | 2 CPU, 2nbsp;GB RAM, 4nbsp;GB Disk |
-| VM medium | 2 CPU, 4nbsp;GB RAM, 8nbsp;GB Disk |
-| VM large | 2 CPU, 8nbsp;GB RAM, 30nbsp;GB Disk |
+| Disk small | 5&nbsp;GB |
+| Disk medium | 20&nbsp;GB |
+| Disk large | 50&nbsp;GB |
+| VM nano | 1 CPU, 1&nbsp;GB RAM, 8&nbsp;GB Disk |
+| VM small | 2 CPU, 2&nbsp;GB RAM, 4&nbsp;GB Disk |
+| VM medium | 2 CPU, 4&nbsp;GB RAM, 8&nbsp;GB Disk |
+| VM large | 2 CPU, 8&nbsp;GB RAM, 30&nbsp;GB Disk |
 
-<%= image_tag("plan-configuration.png") %>
+<%= image_tag("plan_configuration.png") %>
 
 ### <a id="backup_configuration"></a> Backup Configuration
 
-Use **Backup Configuration** to configure the backup endpoints. You can choose between a S3 compliant endpoint and an Azure blob store.
+Use **Backup Configuration** to configure the backup endpoints.
+You can choose between an S3 compliant endpoint and an Azure blob store.
 
 #### Configure S3 Compliant Backup Storage
 
@@ -66,12 +77,12 @@ Use **Backup Configuration** to configure the backup endpoints. You can choose b
   <th>Field</th>
   <th>Description</th>
   <tr>
-    <td>Minumum backups per Instance</td>
-    <td>The minimum amout of backup for any instance, before a backup will be deleted.</td>
+    <td>Minimum backups per Instance</td>
+    <td>The minimum number of backups for any instance before the oldest backup is deleted.</td>
   </tr>
   <tr>
     <td>Minimum Backup Age</td>
-    <td>The minumum age in days of a backup, before it will be allowedto get deleted.</td>
+    <td>The number of days a backup must be stored before it can be deleted.</td>
   </tr>
   <tr>
     <td>Number of workers</td>
@@ -79,19 +90,25 @@ Use **Backup Configuration** to configure the backup endpoints. You can choose b
   </tr>
   <tr>
     <td>Full Backup Repeat</td>
-    <td>Time when a full backup should proceed. Can be set like a cronjob. Only star or numbers are allowed. Example: '30 0 1 1 *' Description: '(Minute) (Hour) (Day of the month) (Month) (Day of the week)'</td>
+    <td>Set the time for a full backup. Use cronjob formatting. Only asterisks and numbers are allowed.<br>
+        Format: (Minute) (Hour) (Day of the month) (Month) (Day of the week).<br>
+        For example, <code>30 0 1 1 *</code> </td>
   </tr>
   <tr>
     <td>Delete Backup Repeat</td>
-    <td>Time when a delete backup should proceed. Can be set like a cronjob. Only star or numbers are allowed. Example: '30 0 1 1 *' Description: '(Minute) (Hour) (Day of the month) (Month) (Day of the week)'</td>
+    <td>Set the time to delete backups. Use cronjob formatting. Only asterisks and numbers are allowed.<br>
+        Format: (Minute) (Hour) (Day of the month) (Month) (Day of the week).<br>
+        For example, <code> 30 0 1 1 *</code> </td>
   </tr>
   <tr>
     <td>AWS Endpoint</td>
-    <td>You can define an alternative S3 endpoint than AWS. I.e. 'http://10.0.4.121:9000/' Keep it empty to use AWS S3 endpoint.</td>
+    <td>Leave this field blank to use the AWS S3 endpoint.
+        Or, define an alternative S3 endpoint, for example,
+        <code>http://10.0.4.121:9000/</code>.</td>
   </tr>
   <tr>
     <td>AWS Access Key Id</td>
-    <td>AWS access key id.</td>
+    <td>AWS access key ID.</td>
   </tr>
   <tr>
     <td>AWS Secret Access Key</td>
@@ -115,36 +132,41 @@ Use **Backup Configuration** to configure the backup endpoints. You can choose b
   <th>Field</th>
   <th>Description</th>
   <tr>
-    <td>Minumum backups per Instance</td>
-    <td>The minimum amout of backup for any instance, before a backup will be deleted.</td>
+    <td>Minimum backups per Instance</td>
+    <td>The minimum number of backups for any instance before the oldest backup is deleted.</td>
   </tr>
   <tr>
     <td>Minimum Backup Age</td>
-    <td>The minumum age in days of a backup, before it will be allowedto get deleted.</td>
+    <td>The number of days a backup must be stored before it can be deleted.</td>
   </tr>
   <tr>
     <td>Number of workers</td>
-    <td>The amount of worker the rails puma server uses to operate. This is necesery because a download of a backup blocks one worker.</td>
+    <td>The number of workers used by the Puma server. 
+        Downloading a backup blocks one worker.</td>
   </tr>
   <tr>
     <td>Full Backup Repeat</td>
-    <td>Time when a full backup should proceed. Can be set like a cronjob. Only star or numbers are allowed. Example: '30 0 1 1 *' Description: '(Minute) (Hour) (Day of the month) (Month) (Day of the week)'</td>
+    <td>Set the time for a full backup. Use cronjob formatting. Only asterisks and numbers are allowed.<br>
+        Format: (Minute) (Hour) (Day of the month) (Month) (Day of the week).<br>
+        For example, <code>30 0 1 1 *</code> </td>
   </tr>
   <tr>
     <td>Delete Backup Repeat</td>
-    <td>Time when a delete backup should proceed. Can be set like a cronjob. Only star or numbers are allowed. Example: '30 0 1 1 *' Description: '(Minute) (Hour) (Day of the month) (Month) (Day of the week)'</td>
+    <td>Set the time to delete backups. Use cronjob formatting. Only asterisks and numbers are allowed.<br>
+        Format: (Minute) (Hour) (Day of the month) (Month) (Day of the week).<br>
+        For example, <code> 30 0 1 1 *</code> </td>
   </tr>
   <tr>
     <td>Azure Storage Account Name</td>
-    <td>The Azure storage accound name.</td>
+    <td>The Azure storage account name.</td>
   </tr>
   <tr>
     <td>Azure Storage Access Key</td>
-    <td>The Arzure storage access key.</td>
+    <td>The Azure storage access key.</td>
   </tr>
   <tr>
     <td>Azure Container</td>
-    <td>The name of the azure container.</td>
+    <td>The name of the Azure container.</td>
   </tr>
 </table>
 
@@ -160,36 +182,37 @@ For example, you might use `logs.papertrail.com:44456` for the syslog endpoint.
   <th>Description</th>
   </tr>
   <tr>
-    <td>Allow block automatic updates.</td>
-    <td>Allow or forbid the Service Instance user to block automatic updates. If it``s not allowed the dashbord will also not show this information.</td>
+    <td>Allow block automatic updates</td>
+    <td>Allow or forbid the service instance user to block automatic updates.
+        If it is not allowed, the dashboard does not show this information.</td>
   </tr>
   <tr>
-    <td>Allow backup download.</td>
-    <td>Allow the Service Instance user to download backups in service dashboard.</td>
+    <td>Allow backup download</td>
+    <td>Allow the service instance user to download backups in the service dashboard.</td>
   </tr>
   <tr>
-    <td>Allow instance recreate.</td>
-    <td>Allow the Service Instance user to recreate the service instance in service dashboard.</td>
+    <td>Allow instance re-create</td>
+    <td>Allow the service instance user to recreate the service instance in the service dashboard.</td>
   </tr>
   <tr>
-    <td>Allow instance restart.</td>
-    <td>Allow the Service Instance user to restart the servive instance in service dashboard.</td>
+    <td>Allow instance restart</td>
+    <td>Allow the service instance user to restart the service instance in the service dashboard.</td>
   </tr>
   <tr>
-    <td>Minimum encryption key length.</td>
+    <td>Minimum encryption key length</td>
     <td>Minimum key length for the backup encryption keys defined by the application developer.</td>
   </tr>
   <tr>
     <td>Service Instance Sharing</td>
-    <td>Allow service instance sharing in CF </td>
+    <td>Allow service instance sharing in CF.</td>
   </tr>
   <tr>
     <td>Internal Syslog Endpoint</td>
-    <td>Define an internal syslog endpoint for all service instances greated by the user.</td>
+    <td>Define an internal syslog endpoint for all service instances created by the user.</td>
   </tr>
   <tr>
     <td>Internal Graphite Endpoint</td>
-    <td>Define an internal graphite endpoint for all service instances greated by the user.</td>
+    <td>Define an internal Graphite endpoint for all service instances created by the user.</td>
   </tr>
 </table>
 
@@ -197,7 +220,7 @@ For example, you might use `logs.papertrail.com:44456` for the syslog endpoint.
 
 ### <a id='management'></a> Management Cluster
 
-All settings on this page are related to the components of the service offering itself not to the service instances.
+All settings on this page are related to the components of the service offering and not to the service instances.
 
 <%= image_tag("management_cluster.png") %>
 
@@ -208,12 +231,13 @@ All settings on this page are related to the components of the service offering 
   </tr>
   <tr>
     <td>Configure DNS Domain</td>
-    <td>The DNS domain for this instalation. All instances will be created under this name. See <a href="#name-resolving-with-consul">Name resolving with consul</a> for mor information.</td>
+    <td>The DNS domain for this installation. All instances are created under this name.
+        For more information, see <a href="name-resolving.html#name-resolving-with-consul">Name Resolving with Consul</a>.</td>
   <tr>
 </table>
 
 #### <a id='syslog-forwarding'></a> Syslog Forwarding
-When syslog forwarding is enabled all logs will be forwardet to the syslog endpoint you can configure here.
+When syslog forwarding is enabled, all logs are forwarded to the syslog endpoint you configure here.
 
 <table class="nice">
   <th>Field</th>
@@ -228,11 +252,11 @@ When syslog forwarding is enabled all logs will be forwardet to the syslog endpo
   </tr>
   <tr>
   <td>Transport Protocol</td>
-  <td>[ UDP | TCP ]</td>
+  <td>UDP or TCP </td>
   </tr>
   <tr>
   <td>Format For Logs</td>
-  <td>[ RFC 5424 | Legacy Format ]</td>
+  <td>RFC 5424 or Legacy Format</td>
   </tr>
   <tr>
   <td>Enable TLS</td>
@@ -240,7 +264,7 @@ When syslog forwarding is enabled all logs will be forwardet to the syslog endpo
   </tr>
   <tr>
   <td>Permitted Peer</td>
-  <td>When TLS is enabled enter the name of remote host, f.e. *.syslogserver.com</td>
+  <td>When TLS is enabled, enter the name of remote host, for example, <code> *.syslogserver.com</code></td>
   </tr>
   <tr>
   <td>Custom CA Certificate</td>
@@ -250,17 +274,23 @@ When syslog forwarding is enabled all logs will be forwardet to the syslog endpo
 
 #### <a id='enable_bosh_dns_handler'></a> Enable BOSH DNS Handler
 
-Enable BOSH DNS Handler for name resolving a9s services within the diego cells. Read the installatiion instructions carefully before you enable the feature you can find <a href="name-resolving.html#name-resolving-with-a9s-bosh-dns-handler">here</a>.
+Enable BOSH DNS Handler for name resolving a9s services within the Diego cells.
+Before you enable the BOSH DNS Handler feature,
+review [Name Resolving With a9s BOSH DNS Handler](name-resolving.html#name-resolving-with-a9s-bosh-dns-handler) carefully.
 
 ### <a id='errands'></a> Configure Errands
 
-Use **Errands** to configure the lifecycle errands that run when you install or uninstall a9s LogMe for PCF. The list below describes each errand. For more information, see [Understanding Lifecycle Errands](https://docs.pivotal.io/tiledev/tile-errands.html).
+Use **Errands** to configure the lifecycle errands that run when you install or uninstall a9s LogMe for PCF.
+The list below describes each errand.
+For more information, see [Errands](https://docs.pivotal.io/tiledev/tile-errands.html).
 
 <%= image_tag("errands.png") %>
 
 #### <a id='post-deploy'></a> Post-Deploy Errands
 
-* **Run Template Uploader**: This errand is required to configure generic components that are included in a9s LogMe for PCF with LogMe  configurations. Disabling this errand may speed up the deployment of all tiles.
+* **Run Template Uploader**: This errand is required to configure generic components
+  that are included in a9s LogMe for PCF with LogMe  configurations.
+  Disabling this errand might speed up the deployment of all tiles.
   <p class="note"><strong>Note:</strong> To ensure your configuration remains up-to-date, disable this errand only when necessary.</p>
 
 * **Run Broker Registrar**: This errand registers the a9s LogMe for PCF service broker with Elastic Runtime. This makes the service available in the Marketplace.
@@ -272,11 +302,12 @@ Use **Errands** to configure the lifecycle errands that run when you install or 
 * **Delete all a9s LogMe instances**: This errand deletes all a9s LogMe instances which were created with `cf create-service` by PCF end users.
   <p class="note warning"><strong>WARNING:</strong> This is an absolutely destructive task and cannot be undone. All VMs of the service instances will be deleted irrecoverably. If a service instance is bound to an app or service keys are existing, the errand will fail.</p>
 
-* **Run Broker Deregistrar**: This will unregister the a9s LogMe for PCF service broker in Elastic Runtime. This errand removes the a9s LogMe service from the Marketplace.
+* **Run Broker Deregistrar**: This deregisters the a9s LogMe for PCF service broker in Pivotal Application Service (PAS).
+  This errand removes the a9s LogMe service from the Marketplace.
 
 ### <a id='resource-config'></a> Configure Resources
 
-You can configure the dimensions of the VMs that host the a9s LogMe for PCF components. This configuration does not cover the dedicated LogMe instances that run on VMs provided by the a9s BOSH tile for PCF. For more information, see [Configure Service Plan VMs](installing.html#plan-configuration).
+You can configure the dimensions of the VMs that host the a9s LogMe for PCF components. This configuration does not cover the dedicated LogMe instances that run on VMs provided by the a9s BOSH tile for PCF. For more information, see [Plan Configuration](installing.html#plan-configuration) above.
 
 <p class="note"><strong>Note:</strong> anynines recommends using a VM type of large or greater to support the tile compilation.</p>
 

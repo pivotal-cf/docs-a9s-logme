@@ -3,18 +3,41 @@ title: a9s LogMe for PCF (Beta)
 owner: Partners
 ---
 
-<p class="note warning"><strong>WARNING:</strong> The a9s LogMe for Pivotal Cloud Foundry (PCF) tile is currently in beta and is intended for evaluation and test purposes only. Do not use this product in a PCF production environment.</p>
+<p class="note warning"><strong>WARNING:</strong> The a9s LogMe for Pivotal
+Cloud Foundry (PCF) tile is currently in beta and is intended for evaluation
+and test purposes only. Do not use this product in a PCF production
+environment.</p>
 
-This documentation describes the a9s LogMe for PCF tile. a9s LogMe for PCF enables on-demand provisioning of a pre-configured [ELK](https://www.elastic.co/elk-stack) (Elasticsearch Logstash Kibana) Stack. The ELK stack makes service and application logs queriable, visualizable, and scalable. Developers can create instances of a LogMe server or cluster using Apps Manager or the Cloud Foundry Command Line Interface (cf CLI), and bind these instances to an application to monitor it, or use them to monitor services. Depending on your service plan, a service instance may be associated with a single, dedicated VM, or a set of VMs consisting of multiple VMs containing a LogMe cluster.
+This documentation describes the a9s LogMe for PCF tile. a9s LogMe for PCF
+enables on-demand provisioning of a pre-configured
+[ELK](https://www.elastic.co/elk-stack) (Elasticsearch Logstash Kibana) Stack.
+The ELK stack makes service and application logs queriable, visualizable, and
+scalable. Developers can create instances of a LogMe server or cluster using
+Apps Manager or the Cloud Foundry Command Line Interface (cf CLI), and bind
+these instances to an application to monitor it, or use them to monitor
+services. Depending on your service plan, a service instance may be associated
+with a single, dedicated VM, or a set of VMs consisting of multiple VMs
+containing a LogMe cluster.
 
 
 ## <a id='overview'></a> Overview
 
-a9s LogMe for PCF enables on-demand provisioning of VM-based, dedicated LogMe servers. App developers can create instances of a LogMe server using Apps Manager or the Cloud Foundry Command Line Interface tool (cf CLI) and bind these instances to an app to monitor it or use them to monitor services. The service runs on a single, dedicated VM, the size of which depends on your service plan.
+as LogMe for PCF enables on-demand provisioning of VM-based, dedicated LogMe
+servers. App developers can create instances of a LogMe server using Apps
+Manager or the Cloud Foundry Command Line Interface tool (cf CLI) and bind
+these instances to an app to monitor it or use them to monitor services. The
+service runs on a single, dedicated VM, the size of which depends on your
+service plan.
 
-a9s LogMe for PCF automatically provisions service instances and creates a dedicated VM for each instance. This isolates service instances, preventing the "noisy neighbor" problem that can occur when multiple service instances run on a shared VM.
+a9s LogMe for PCF automatically provisions service instances and creates a
+dedicated VM for each instance. This isolates service instances, preventing the
+"noisy neighbor" problem that can occur when multiple service instances run on
+a shared VM.
 
-Because the service provisions VMs as needed, only existing service instances use infrastructure resources. These resources are released when service instances are destroyed. With on-demand provisioning, the number of service instances grows or shrinks based on demand.
+Because the service provisions VMs as needed, only existing service instances
+use infrastructure resources. These resources are released when service
+instances are destroyed. With on-demand provisioning, the number of service
+instances grows or shrinks based on demand.
 
 ### <a></a> Current Features
 
@@ -22,20 +45,18 @@ a9s LogMe for PCF includes the following key features:
 
 | Feature | Description |
 |---------|---------|
-| **On-demand service instance provisioning** | a9s LogMe for PCF deploys LogMe instances automatically. Developers can provision a LogMe service, on a single-VM or cluster of VMs, using the single command `cf create-service`. |
+| **On-demand service instance provisioning** | a9s LogMe for PCF deploys LogMe instances automatically. Developers can provision a LogMe service, on a single VM or cluster of VMs, using the single command `cf create-service`. |
 | **Service instance isolation** | Each LogMe server runs on a dedicated VM to ensure noisy-neighbor protection and align with enterprise security requirements.<br/><br/>a9s LogMe for PCF uses Cloud Foundry [application security groups (ASGs)](https://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) to prevent network connections from unauthorized apps.
 | **Smoke tests** | A post-deployment, smoke-test errand runs basic tests against your installation, ensuring that it is configured properly. |
 | **Deployment updater** | An updater errand updates the stemcell and all provisioned a9s LogMe for PCF service instances to their latest version. |
 | **Syslog Endpoints for Instances** | In the tile a default endpoint for syslog and Graphite can be configured for each service instances which is greated by the end user. |
 | **Consul Domain configurable** | The consul domain can now be configured. |
-| **BOSH DNS Handler** | a9s BOSH DNS handler added to make a9s service instances accessible from diego cells. |
+| **BOSH DNS Handler** | a9s BOSH DNS handler added to make a9s service instances accessible from Diego cells. |
 | **a9s-pg Backup** | Added backup option for a9s-pg. |
 | **Instance Sharing** | a9s MySQL no supports instance sharing between orgs an spaces, see [documentation](https://docs.pivotal.io/pivotalcf/2-4/devguide/services/sharing-instances.html). |
-| **Update Xenial** | Update to ubuntu xenial stemcells. |
+| **Update Xenial** | Update to Ubuntu Xenial stemcells. |
 
 ## <a id="snapshot"></a> Product Snapshot
-
-<p class='note'><strong>Note:</strong> As of PCF v2.0, Elastic Runtime is renamed Pivotal Application Service (PAS).</p>
 
 The following table provides version and version-support information about a9s LogMe for PCF:
 
@@ -48,7 +69,7 @@ The following table provides version and version-support information about a9s L
     </tr>
     <tr>
         <td>Release date</td>
-        <td>February 14, 2019</td>
+        <td>February 20, 2019</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
@@ -59,12 +80,23 @@ The following table provides version and version-support information about a9s L
         <td>v2.1.x, v2.2.x, v2.3.x, and v2.4.x</td>
     </tr>
     <tr>
+    <tr>
+       <td>BOSH stemcell version</td>
+       <td>Ubuntu Xenial</td>
+    </tr>
         <td>IaaS support</td>
-        <td>AWS, Azure, GCP, OpenStack, and Vsphere</td>
+        <td>AWS, Azure, GCP, OpenStack, and vSphere</td>
     </tr>
 </table>
 
-<p class='note'><strong>Note:</strong> This is a major release. Upgrades from a9s LogMe for PCF v1.x are not supported. If you previously installed a9s LogMe for PCF v1.x, uninstall it and install the latest version.</p>
+<p class="note warning"><strong> WARNING:</strong>
+a9s LogMe for PCF v2.0.1
+and earlier require a Ubuntu Trusty stemcell.
+The end-of-life date for Ubuntu Trusty is April 2019.
+If a security vulnerability is found on this stemcell after April, it will not be fixed.</p>
+
+<p class='note'><strong>Note:</strong> This is a major release. Upgrades from a9s LogMe for PCF v1.x are not supported.
+If you previously installed a9s LogMe for PCF v1.x, uninstall it and install the latest version.</p>
 
 
 ## <a id="reqs"></a> Requirements
@@ -78,11 +110,18 @@ For more information, see [Installing and Configuring a9s LogMe for PCF](./insta
 
 ## <a id="feedback"></a> Feedback and Support
 
-a9s LogMe for PCF is an automation toolset for open source LogMe. The entire anynines team can help your team get started and be successful. Technical support, including a service level agreement, is available with a commercial license.
+a9s LogMe for PCF is an automation toolset for open source LogMe. The entire
+anynines team can help your team get started and be successful. Technical
+support, including a service level agreement, is available with a commercial
+license.
 
-If your company has specific LogMe administration policies or configuration best practices, the anynines team is happy to incorporate them, if applicable. Third-party LogMe support organizations are also welcome to assist.
+If your company has specific LogMe administration policies or configuration
+best practices, the anynines team is happy to incorporate them, if applicable.
+Third-party LogMe support organizations are also welcome to assist.
 
-Contributions are welcome and will be investigated by the anynines team. Send any bugs, feature requests, or questions to [dssupport@anynines.com](mailto:dssupport@anynines.com).
+Contributions are welcome and will be investigated by the anynines team. Send
+any bugs, feature requests, or questions to
+[dssupport@anynines.com](mailto:dssupport@anynines.com).
 
 
 ## <a id='license'></a> License
