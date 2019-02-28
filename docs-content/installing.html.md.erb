@@ -43,8 +43,8 @@ between as many AZs as possible.
 
 ### <a id="plan-configuration"></a> Plan Configuration
 
-Define the AZ placement where the service instances will be deployed, as well
-as the VM and persistent disk types. VM and persistent disk types will be used
+Define the AZ placement where the service instances are deployed into, as well
+as the VM and persistent disk types. VM and persistent disk types are used
 in the service instance deployments. Disk size and VM size (CPUs and memory)
 can be configured independently, to create your desired plans, however, you must
 consider that moving from a lager disk to a smaller disk is likely to fail.
@@ -86,19 +86,19 @@ You can choose between an S3 compliant endpoint and an Azure blob store.
   </tr>
   <tr>
     <td>Number of workers</td>
-    <td>The amount of worker the rails puma server uses to operate. This is necesery because a download of a backup blocks one worker.</td>
+    <td>The amount of worker the rails puma server uses to operate. This is necessary because a download of a backup blocks one worker.</td>
   </tr>
   <tr>
     <td>Full Backup Repeat</td>
     <td>Set the time for a full backup. Use cronjob formatting. Only asterisks and numbers are allowed.<br>
         Format: (Minute) (Hour) (Day of the month) (Month) (Day of the week).<br>
-        For example, <code>30 0 1 1 *</code> </td>
+        For example, <code>30 0 * * *</code> </td>
   </tr>
   <tr>
     <td>Delete Backup Repeat</td>
     <td>Set the time to delete backups. Use cronjob formatting. Only asterisks and numbers are allowed.<br>
         Format: (Minute) (Hour) (Day of the month) (Month) (Day of the week).<br>
-        For example, <code> 30 0 1 1 *</code> </td>
+        For example, <code> 30 0 * * *</code> </td>
   </tr>
   <tr>
     <td>AWS Endpoint</td>
@@ -141,20 +141,20 @@ You can choose between an S3 compliant endpoint and an Azure blob store.
   </tr>
   <tr>
     <td>Number of workers</td>
-    <td>The number of workers used by the Puma server. 
+    <td>The number of workers used by the Puma server.
         Downloading a backup blocks one worker.</td>
   </tr>
   <tr>
     <td>Full Backup Repeat</td>
     <td>Set the time for a full backup. Use cronjob formatting. Only asterisks and numbers are allowed.<br>
         Format: (Minute) (Hour) (Day of the month) (Month) (Day of the week).<br>
-        For example, <code>30 0 1 1 *</code> </td>
+        For example, <code>30 0 * * *</code> </td>
   </tr>
   <tr>
     <td>Delete Backup Repeat</td>
     <td>Set the time to delete backups. Use cronjob formatting. Only asterisks and numbers are allowed.<br>
         Format: (Minute) (Hour) (Day of the month) (Month) (Day of the week).<br>
-        For example, <code> 30 0 1 1 *</code> </td>
+        For example, <code> 30 0 * * *</code> </td>
   </tr>
   <tr>
     <td>Azure Storage Account Name</td>
@@ -264,7 +264,7 @@ When syslog forwarding is enabled, all logs are forwarded to the syslog endpoint
   </tr>
   <tr>
   <td>Permitted Peer</td>
-  <td>When TLS is enabled, enter the name of remote host, for example, <code> *.syslogserver.com</code></td>
+  <td>When TLS is enabled, enter the name of remote host, for example, <code>*.syslogserver.com</code></td>
   </tr>
   <tr>
   <td>Custom CA Certificate</td>
@@ -300,7 +300,7 @@ For more information, see [Errands](https://docs.pivotal.io/tiledev/tile-errands
 #### <a id='pre-delete'></a> Pre-Delete Errands
 
 * **Delete all a9s LogMe instances**: This errand deletes all a9s LogMe instances which were created with `cf create-service` by PCF end users.
-  <p class="note warning"><strong>WARNING:</strong> This is an absolutely destructive task and cannot be undone. All VMs of the service instances will be deleted irrecoverably. If a service instance is bound to an app or service keys are existing, the errand will fail.</p>
+  <p class="note warning"><strong>WARNING:</strong> This is an absolutely destructive task and cannot be undone. All VMs of the service instances are deleted irrecoverably. If a service instance is bound to an app or service keys are existing, The errand fails.</p>
 
 * **Run Broker Deregistrar**: This deregisters the a9s LogMe for PCF service broker in Pivotal Application Service (PAS).
   This errand removes the a9s LogMe service from the Marketplace.

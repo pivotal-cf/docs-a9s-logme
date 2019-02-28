@@ -49,7 +49,7 @@ a9s LogMe for PCF includes the following key features:
 | **Service instance isolation** | Each LogMe server runs on a dedicated VM to ensure noisy-neighbor protection and align with enterprise security requirements.<br/><br/>a9s LogMe for PCF uses Cloud Foundry [application security groups (ASGs)](https://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) to prevent network connections from unauthorized apps.
 | **Smoke tests** | A post-deployment, smoke-test errand runs basic tests against your installation, ensuring that it is configured properly. |
 | **Deployment updater** | An updater errand updates the stemcell and all provisioned a9s LogMe for PCF service instances to their latest version. |
-| **Syslog Endpoints for Instances** | In the tile a default endpoint for syslog and Graphite can be configured for each service instances which is greated by the end user. |
+| **Syslog Endpoints for Instances** | In the tile a default endpoint for syslog and Graphite can be configured for each service instances which is created by the end user. |
 | **Consul Domain configurable** | The consul domain can now be configured. |
 | **BOSH DNS Handler** | a9s BOSH DNS handler added to make a9s service instances accessible from Diego cells. |
 | **a9s-pg Backup** | Added backup option for a9s-pg. |
