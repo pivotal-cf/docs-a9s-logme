@@ -3,7 +3,7 @@ title: Backup and Restore
 owner: Partners
 ---
 
-This topic describes the backup of the management cluster database **a9s-pg** from an operators perspective.
+This topic describes the backup of the management cluster database **a9s-pg** from an operator's perspective.
 
 ## <a id='a9s-pg-backup-limitations'></a> Limitations
 
@@ -12,16 +12,18 @@ Manager and all services around a9s Elasticsearch for PCF, the consistency of
 the backup information of a9s-pg is not guaranteed:
 
 - Restores of a9s-pg cannot be stored in the database because at the time
-  the restore is running the database where the restore information is stored is gone and will be restored to a previous point in time.
+  the restore is running the database where the restore information is stored
+  is gone and will be restored to a previous point in time.
 - All backups that have been triggered after the backup which is restored are not longer known in the database.
 
-<p class="note"><strong>Note:</strong> Be aware that restoring the a9s-pg to a previous point in time,
+<p class="note"><strong>Note:</strong> Be aware that restoring the a9s-pg to a previous point in time
     means you might lose information about deployed instances. This results in ghost instances
     that cannot be handled by the a9s Service Broker and a9s Deployer.</p>
 
 ## <a id='trigger-backups-and-restore'></a> Prerequisites
 
 Before you can trigger a backup, you need the IP address and the credentials of the a9s Backup Manager.
+To find these, do the following:
 
 1. Navigate to the **Status** tab of the tile and record the IP address of one of the a9s Ancillary Service instances.
 
@@ -74,15 +76,16 @@ The status flag `"backups.backup_agent_task.status"` can have the following valu
 * `"done"` when the backup is finished
 * `"running"` when the backup is running
 * `"queued"` while the backup is only queued
-* `"failed"` once the backup failed
+* `"failed"` after the backup failed
 * `"deleted"` when the backup has been deleted
 
 ## <a id='a9s-pg-backup-restore-a-backup'></a> Restore a Backup
 
 Use the `backup_agent/restores` endpoint to restore a backup.
 You need the `instance_id` and the `backup_id` (given as id) from the backup you
-want to restore. To get this information you need to curl the `instances/a9s-pg`
-endpoint before, see [Trigger a backup](backup.html#a9s-pg-backup-trigger-a-backup).
+want to restore.
+To get this information you need to curl the `instances/a9s-pg` endpoint before,
+see [Trigger a backup](backup.html#a9s-pg-backup-trigger-a-backup).
 
 ```json
 {
@@ -121,4 +124,3 @@ $ tail -f /var/vcap/sys/log/backup-agent/production.log
 I, [2018-11-20T12:13:00.939338 #31554]  INFO -- : success
 172.28.19.51 - oy6Xh45byt4IMhMmlLSV9s_WCdKx9-gT [20/Nov/2018:12:13:02 +0000] "POST /v1/order HTTP/1.1" 200 13 0.7154
 ```
-
