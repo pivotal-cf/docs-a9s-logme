@@ -1,21 +1,21 @@
 ---
-title: Installing and Configuring a9s LogMe for PCF
+title: Installing and Configuring a9s LogMe for Pivotal Platform
 owner: Partners
 ---
 
-This topic describes how to install and configure a9s LogMe for Pivotal Cloud Foundry (PCF).
+This topic describes how to install and configure a9s LogMe for Pivotal Platform.
 
 
-## <a id='install'></a> Install a9s LogMe for PCF
+## <a id='install'></a> Install a9s LogMe for Pivotal Platform
 
-To install a9s LogMe for PCF, do the following:
+To install a9s LogMe for Pivotal Platform, do the following:
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/a9s-logme).
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-1. Click **Add** or **+** (depending on the PCF version) next to the uploaded
-   a9s LogMe for PCF tile in the Ops Manager **Available Products** view to add it
+1. Click **Add** or **+** (depending on the Pivotal Platform version) next to the uploaded
+   a9s LogMe for Pivotal Platform tile in the Ops Manager **Available Products** view to add it
    to your staging area.
 
 1. Click the new tile, then click **Settings** to review the configuration settings for each tab.
@@ -30,8 +30,8 @@ To install a9s LogMe for PCF, do the following:
 
 1. Click **Apply Changes** to deploy the service.
 
-After you install the a9s LogMe for PCF, it is available in the list of Marketplace services.
-For more information, see [Using a9s LogMe for PCF](./using.html).
+After you install the a9s LogMe for Pivotal Platform, it is available in the list of Marketplace services.
+For more information, see [Using a9s LogMe for Pivotal Platform](./using.html).
 
 ### <a id="azs"></a> Assign AZs and Networks
 
@@ -280,7 +280,7 @@ review [Name Resolving With a9s BOSH DNS Handler](name-resolving.html#name-resol
 
 ### <a id='errands'></a> Configure Errands
 
-Use **Errands** to configure the lifecycle errands that run when you install or uninstall a9s LogMe for PCF.
+Use **Errands** to configure the lifecycle errands that run when you install or uninstall a9s LogMe for Pivotal Platform.
 The list below describes each errand.
 For more information, see [Errands](https://docs.pivotal.io/tiledev/tile-errands.html).
 
@@ -289,25 +289,25 @@ For more information, see [Errands](https://docs.pivotal.io/tiledev/tile-errands
 #### <a id='post-deploy'></a> Post-Deploy Errands
 
 * **Run Template Uploader**: This errand is required to configure generic components
-  that are included in a9s LogMe for PCF with LogMe  configurations.
+  that are included in a9s LogMe for Pivotal Platform with LogMe  configurations.
   Disabling this errand might speed up the deployment of all tiles.
   <p class="note"><strong>Note:</strong> To ensure your configuration remains up-to-date, disable this errand only when necessary.</p>
 
-* **Run Broker Registrar**: This errand registers the a9s LogMe for PCF service broker with Elastic Runtime. This makes the service available in the Marketplace.
+* **Run Broker Registrar**: This errand registers the a9s LogMe for Pivotal Platform service broker with Elastic Runtime. This makes the service available in the Marketplace.
 
-* **Run Smoke Tests**: This errand runs a series of basic tests against your a9s LogMe for PCF installation to ensure that it is configured properly. Those tests may take a while, probably over 30 minutes.
+* **Run Smoke Tests**: This errand runs a series of basic tests against your a9s LogMe for Pivotal Platform installation to ensure that it is configured properly. Those tests may take a while, probably over 30 minutes.
 
 #### <a id='pre-delete'></a> Pre-Delete Errands
 
-* **Delete all a9s LogMe instances**: This errand deletes all a9s LogMe instances which were created with `cf create-service` by PCF end users.
+* **Delete all a9s LogMe instances**: This errand deletes all a9s LogMe instances which were created with `cf create-service` by Pivotal Platform end users.
   <p class="note warning"><strong>WARNING:</strong> This is an absolutely destructive task and cannot be undone. All VMs of the service instances will be deleted irrecoverably. If a service instance is bound to an app or service keys are existing, the errand will fail.</p>
 
-* **Run Broker Deregistrar**: This deregisters the a9s LogMe for PCF service broker in Pivotal Application Service (PAS).
+* **Run Broker Deregistrar**: This deregisters the a9s LogMe for Pivotal Platform service broker in Pivotal Application Service (PAS).
   This errand removes the a9s LogMe service from the Marketplace.
 
 ### <a id='resource-config'></a> Configure Resources
 
-You can configure the dimensions of the VMs that host the a9s LogMe for PCF components. This configuration does not cover the dedicated LogMe instances that run on VMs provided by the a9s BOSH tile for PCF. For more information, see [Plan Configuration](installing.html#plan-configuration) above.
+You can configure the dimensions of the VMs that host the a9s LogMe for Pivotal Platform components. This configuration does not cover the dedicated LogMe instances that run on VMs provided by the a9s BOSH tile for Pivotal Platform. For more information, see [Plan Configuration](installing.html#plan-configuration) above.
 
 <p class="note"><strong>Note:</strong> anynines recommends using a VM type of large or greater to support the tile compilation.</p>
 

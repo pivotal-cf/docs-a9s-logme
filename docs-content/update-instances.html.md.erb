@@ -3,7 +3,7 @@ title: Update Instances
 owner: Partners
 ---
 
-After updating the a9s LogMe for PCF tile, run the Deployment Updater errand to update all provisioned service instances to the new service and stemcell versions.
+After updating the a9s LogMe for Pivotal Platform tile, run the Deployment Updater errand to update all provisioned service instances to the new service and stemcell versions.
 
 <p class="note"><strong>Note:</strong> anynines recommends running the smoke tests before running this errand.
 See <a href="./installing.html#errands" target="_blank">Post-Deploy Errands</a>.</p>
@@ -24,7 +24,7 @@ Enter password: DIRECTOR\_CREDENTIAL
 Logged in as 'director'
 </pre>
 
-1. Run `bosh deployments` and record the name of the a9s LogMe for PCF deployment from the **Name** column:
+1. Run `bosh deployments` and record the name of the a9s LogMe for Pivotal Platform deployment from the **Name** column:
 <pre class="terminal">
 $ bosh deployments
 Using environment '172.28.10.11' as client 'ops_manager'
@@ -38,7 +38,7 @@ cf-7fcd1f89150a96b381d0              backup-and-restore-sdk/1.2.1          bosh-
                                      uaa/52.7
 </pre>
 
-1. Run `bosh -d a9s-logme-service-94443f82b52dcf333bbd run errand deployment-updater` to force the update for all existing a9s LogMe for PCF instances:
+1. Run `bosh -d a9s-logme-service-94443f82b52dcf333bbd run errand deployment-updater` to force the update for all existing a9s LogMe for Pivotal Platform instances:
 <pre class="terminal">
 $ bosh -d a9s-logme-0476d61a219a39bf0e1b run-errand deployment-updater
 Using environment '172.28.10.11' as client 'ops_manager'
